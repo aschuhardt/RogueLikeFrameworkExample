@@ -3,10 +3,10 @@
         private GlobalStatics() { }
         public const int DEFAULT_WINDOW_WIDTH = 800;
         public const int DEFAULT_WINDOW_HEIGHT = 600;
-        public const int FONT_HEIGHT = 12;
-        public const int FONT_WIDTH = 7;
+        public const int FONT_HEIGHT = 16;
+        public const int FONT_WIDTH = 8;
         public const string WINDOW_TITLE = "Testing";
-        public const string FONT_PATH = "VeraMono.ttf";
+        public const string FONT_PATH = "typeface/MorePerfectDOSVGA.ttf";
         public const int ANTIALIASING_LEVEL = 4;
         public const int BIT_DEPTH = 24;
         public const int STENCIL_DEPTH = 0;
