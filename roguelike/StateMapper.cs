@@ -4,8 +4,8 @@ namespace roguelike {
     class StateMapper {
         private StateMapper() { }
 
-        public static IState TransitToState(State stateToEnter) {
-            IState output;
+        public static IModule TransitToState(State stateToEnter) {
+            IModule output;
             switch (stateToEnter) {
                 case State.MainMenu:
                     output = new MainMenu();

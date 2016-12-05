@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using roguelike.entity;
 
 namespace roguelike.modules {
-    abstract class ModuleBase : IState {
+    abstract class ModuleBase : IModule {
         protected List<IEntity> _entities;
         protected List<object> _transferParams;
         protected bool _closing;
@@ -51,7 +51,7 @@ namespace roguelike.modules {
             }
         }
         
-        VideoSettings IState.videoSettings {
+        VideoSettings IModule.videoSettings {
             get {
                 return _videoSettings;
             }

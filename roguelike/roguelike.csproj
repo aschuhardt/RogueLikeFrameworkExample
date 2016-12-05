@@ -77,7 +77,7 @@
     <Compile Include="manager\LogicManager.cs" />
     <Compile Include="manager\ManagerBase.cs" />
     <Compile Include="modules\About.cs" />
-    <Compile Include="modules\Interface\IState.cs" />
+    <Compile Include="modules\Interface\IModule.cs" />
     <Compile Include="modules\MainMenu.cs" />
     <Compile Include="modules\base\ModuleBase.cs" />
     <Compile Include="modules\Options.cs" />

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace roguelike.modules {
-    interface IState {
+    interface IModule {
         bool closing { get; }
         State moduleState { get; }
         State nextStateType { get; }
