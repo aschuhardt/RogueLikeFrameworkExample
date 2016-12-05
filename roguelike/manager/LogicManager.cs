@@ -2,7 +2,6 @@
 using roguelike.entity;
 using roguelike.modules;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace roguelike.manager {
     class LogicManager : ManagerBase {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using roguelike.entity;
 using roguelike.entity.entitycolor;
 

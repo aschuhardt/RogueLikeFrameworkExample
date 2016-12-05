@@ -1,4 +1,5 @@
 ﻿using roguelike.modules;
+
 namespace roguelike {
     class StateMapper {
         private StateMapper() { }
