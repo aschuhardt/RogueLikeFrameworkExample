@@ -14,11 +14,20 @@ namespace roguelike {
         private DrawManager _drawMan;
         private LogicManager _logicMan;
         private InputManager _inputMan;
+        private VideoSettings _defaultVideoSettings;
 
         public Game() {
             _drawMan = new DrawManager();
             _logicMan = new LogicManager();
             _inputMan = new InputManager();
+
+            _defaultVideoSettings = new VideoSettings() {
+                width = GlobalStatics.DEFAULT_WINDOW_WIDTH,
+                height = GlobalStatics.DEFAULT_WINDOW_HEIGHT,
+                aalevel = GlobalStatics.DEFAULT_ANTIALIASING_LEVEL,
+                fullscreen = false
+            };
+
             if (init()) {
                 _initSuccess = true;
             } else {
@@ -29,6 +38,7 @@ namespace roguelike {
                     _drawMan.errorMessage
                 });
             }
+
         }
 
         public void run() {
@@ -51,24 +61,36 @@ namespace roguelike {
                         //perform core game logic
                         _logicMan.run();
 
-                        //populate draw manager's entity buffer
-                        _drawMan.setEntityBuffer(_logicMan.getEntities());
+                        //check whether logicman wants to reinit the window and do so if necessary
+                        if (_logicMan.shouldReInitializeWindow) {
+                            _drawMan.initWindow(_logicMan.videoSettings);
+                            //reinit the input manager since it depends on our window object
+                            _inputMan.window = _drawMan.window;
+                            _inputMan.init();
+                        } else {
+                            //populate draw manager's entity buffer
+                            _drawMan.setEntityBuffer(_logicMan.getEntities());
 
-                        //perform draw routines
-                        _drawMan.run();
-                    }                    
+                            //perform draw routines
+                            _drawMan.run();
+                        }
+                    }
                 }
             }
         }
 
         private bool init() {
             bool result = true;
+
+            _drawMan.defaultVideoSettings = _defaultVideoSettings;
             result &= _drawMan.init();
 
             //set inputMan's window handle
             _inputMan.window = _drawMan.window;
 
+            _logicMan.videoSettings = _drawMan.defaultVideoSettings;
             result &= _logicMan.init();
+
             result &= _inputMan.init();
             return result;
         }

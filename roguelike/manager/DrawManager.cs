@@ -14,6 +14,8 @@ namespace roguelike.manager {
         private bool _windowInitialized;
         private ICollection<IEntity> _entityBuffer;
 
+        public VideoSettings defaultVideoSettings { get; set; }
+
         public RenderWindow window {
             get {
                 if (!_windowInitialized) {
@@ -76,10 +78,10 @@ namespace roguelike.manager {
 
                     //draw background rectangle
                     _window.Draw(backRectFill);
-                    
+
                     //draw text
                     _window.Draw(txt);
-                    
+
                 }
 
                 //show drawn screen buffer
@@ -91,14 +93,28 @@ namespace roguelike.manager {
             }
         }
 
-        private void initWindow() {
+        public void initWindow() {
+            initWindow(defaultVideoSettings);
+        }
+
+        public void initWindow(VideoSettings settings) {
+            Styles windowStyle = Styles.Close | Styles.Titlebar;
+            if (settings.fullscreen) {
+                windowStyle |= Styles.Fullscreen;
+            }
+
+            if (_windowInitialized) {
+                _window.Dispose();
+            }
+
             _window = new RenderWindow(
-                new VideoMode(GlobalStatics.DEFAULT_WINDOW_WIDTH, GlobalStatics.DEFAULT_WINDOW_HEIGHT),
+                new VideoMode(settings.width, settings.height),
                 GlobalStatics.WINDOW_TITLE,
-                Styles.Close | Styles.Titlebar,
-                new ContextSettings(GlobalStatics.BIT_DEPTH, GlobalStatics.STENCIL_DEPTH, GlobalStatics.ANTIALIASING_LEVEL));
+                windowStyle,
+                new ContextSettings(GlobalStatics.BIT_DEPTH, GlobalStatics.STENCIL_DEPTH, settings.aalevel));
             _window.SetVerticalSyncEnabled(true);
             _windowInitialized = true;
+            _window.SetActive(true);
         }
 
         private void initFont() {

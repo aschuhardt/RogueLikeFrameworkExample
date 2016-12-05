@@ -9,6 +9,8 @@ namespace roguelike.modules {
         protected bool _closing;
         protected State _nextState;
         protected InputType _input;
+        protected bool _reinitWindow;
+        protected VideoSettings _videoSettings;
 
         public bool closing {
             get {
@@ -40,6 +42,25 @@ namespace roguelike.modules {
             }
         }
 
+        public bool shouldReInitializeWindow {
+            get {
+                //reset to false after retrieving for safety's sake
+                bool result = _reinitWindow;
+                _reinitWindow = false;
+                return result;
+            }
+        }
+        
+        VideoSettings IState.videoSettings {
+            get {
+                return _videoSettings;
+            }
+
+            set {
+                _videoSettings = value;
+            }
+        }
+
         public bool init(IList<object> parameters) {
             return initModule(parameters);
         }
@@ -52,6 +73,8 @@ namespace roguelike.modules {
             _closing = false;
             _entities = new List<IEntity>();
             _transferParams = new List<object>();
+            _reinitWindow = false;
+            _videoSettings = null;
         }
 
         protected abstract State getModuleState();

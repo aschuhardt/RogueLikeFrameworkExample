@@ -9,7 +9,7 @@
         public const int FONT_BACKGROUND_VERT_POS_ADJUSTMENT = 4;
         public const string WINDOW_TITLE = "Testing";
         public const string FONT_PATH = "typeface/MorePerfectDOSVGA.ttf";
-        public const int ANTIALIASING_LEVEL = 4;
+        public const int DEFAULT_ANTIALIASING_LEVEL = 4;
         public const int BIT_DEPTH = 24;
         public const int STENCIL_DEPTH = 0;
         public const string LINE_DELIMITER = "%endline%";
@@ -33,6 +33,7 @@
             + "This is a test of a text-based game framework developed using SFML." + LINE_DELIMITER
             + "See https://github.com/aschuhardt for information and source.";
 
-        
+        public static int window_width = DEFAULT_WINDOW_WIDTH;
+        public static int window_height = DEFAULT_WINDOW_HEIGHT;
     }
 }

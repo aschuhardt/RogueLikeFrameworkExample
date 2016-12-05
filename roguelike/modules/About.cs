@@ -15,7 +15,7 @@ namespace roguelike.modules {
             //draw borders
             EntityColor borderForeColor = EntityColor.createRGB(255, 102, 0);
             EntityColor borderBackColor = EntityColor.createRGB(0, 0, 0);
-            _entities.AddRange(EntityDrawingMacros.drawWindowBorders(borderForeColor, borderBackColor));
+            _entities.AddRange(EntityDrawingMacros.drawWindowBorders(_videoSettings.width, _videoSettings.height, borderForeColor, borderBackColor));
 
             //draw about text
             string[] aboutText = EntityDrawingMacros.splitMultiLineDelimited(GlobalStatics.ABOUT_TEXT);

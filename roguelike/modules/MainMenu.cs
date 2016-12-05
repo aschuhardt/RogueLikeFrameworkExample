@@ -84,7 +84,7 @@ namespace roguelike.modules {
 
         private void drawStaticGlyphs() {
             //draw borders
-            _entities.AddRange(EntityDrawingMacros.drawWindowBorders(_borderForeColor, _borderBackColor, STATIC_LAYER));
+            _entities.AddRange(EntityDrawingMacros.drawWindowBorders(_videoSettings.width, _videoSettings.height, _borderForeColor, _borderBackColor, STATIC_LAYER));
 
             //draw title
             string[] titleLines = EntityDrawingMacros.splitMultiLineDelimited(GlobalStatics.TITLE_ART);
@@ -117,6 +117,17 @@ namespace roguelike.modules {
                 _redrawMenu = true;
             } else if (_scrollingUp && !upPressed) {
                 _scrollingUp = !_scrollingUp;
+            }
+
+            //TODO: Delete me!!!!!!!
+            if (InputFlagHelper.isInputFlagSet(_input, InputType.Right)) {
+                _videoSettings = new VideoSettings() {
+                    width = 480,
+                    height = 320,
+                    aalevel = 0,
+                    fullscreen = false
+                };
+                _reinitWindow = true;
             }
 
             if (enterPressed) {

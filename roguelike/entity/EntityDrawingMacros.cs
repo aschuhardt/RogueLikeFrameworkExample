@@ -27,17 +27,15 @@ namespace roguelike.entity {
             return result.ToArray();
         }
 
-        public static IEntity[] drawWindowBorders(EntityColor borderForeColor, EntityColor borderBackColor, float layer = 0.0f) {
+        public static IEntity[] drawWindowBorders(uint width, uint height, EntityColor borderForeColor, EntityColor borderBackColor, float layer = 0.0f) {
             List<IEntity> result = new List<IEntity>();
-            int height = GlobalStatics.DEFAULT_WINDOW_HEIGHT;
-            int width = GlobalStatics.DEFAULT_WINDOW_WIDTH;
             int fontHeight = GlobalStatics.FONT_HEIGHT;
             int fontWidth = GlobalStatics.FONT_WIDTH;
 
             int top = 0;
-            int bottom = height - fontHeight;
+            int bottom = Convert.ToInt32(height - fontHeight);
             int left = 0;
-            int right = width - fontWidth;
+            int right = Convert.ToInt32(width - fontWidth);
 
             //top
             result.AddRange(drawRect(BORDER_CHARACTER, borderForeColor, borderBackColor, left, top, right, top, layer));

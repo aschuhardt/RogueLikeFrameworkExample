@@ -12,6 +12,8 @@ namespace roguelike.modules {
         State nextStateType { get; }
         IEnumerable<IEntity> entities { get; }
         IList<object> transferParameters { get; }
+        bool shouldReInitializeWindow { get; }
+        VideoSettings videoSettings { get; set; }
         bool init(IList<object> parameters);
         void run();
         void setInput(InputType input);
