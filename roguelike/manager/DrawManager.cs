@@ -70,12 +70,12 @@ namespace roguelike.manager {
 
                     //init background rectangle
                     FloatRect backRect = txt.GetLocalBounds();
-                    RectangleShape backRectFill = new RectangleShape(new Vector2f(backRect.Width, backRect.Height + (_font.GetLineSpacing(GlobalStatics.FONT_HEIGHT) / 3)));
+                    RectangleShape backRectFill = new RectangleShape(new Vector2f(backRect.Width, backRect.Height + GlobalStatics.FONT_BACKGROUND_HEIGHT_ADJUSTMENT));
                     backRectFill.FillColor = backColor;
-                    //backRectFill.Position = txt.Position;
+                    backRectFill.Position = new Vector2f(txt.Position.X, txt.Position.Y + GlobalStatics.FONT_BACKGROUND_VERT_POS_ADJUSTMENT);
 
                     //draw background rectangle
-                    _window.Draw(backRectFill, new RenderStates(txt.Transform));
+                    _window.Draw(backRectFill);
                     
                     //draw text
                     _window.Draw(txt);

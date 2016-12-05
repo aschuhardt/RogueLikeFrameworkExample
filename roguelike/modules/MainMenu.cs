@@ -31,7 +31,6 @@ namespace roguelike.modules {
         private bool _scrollingUp;
         private bool _scrollingDown;
         private bool _redrawMenu;
-        private bool _enterPressed;
 
         protected override State getModuleState() {
             return State.MainMenu;
