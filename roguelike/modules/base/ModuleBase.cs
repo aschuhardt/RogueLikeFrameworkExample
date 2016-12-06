@@ -9,6 +9,8 @@ namespace roguelike.modules {
         protected bool _closing;
         protected State _nextState;
         protected InputType _input;
+        protected uint _windowWidth;
+        protected uint _windowHeight;
         private bool _reinitWindow;
         private VideoSettings _videoSettings;
 
@@ -62,6 +64,8 @@ namespace roguelike.modules {
         }
 
         public bool init(IList<object> parameters) {
+            _windowWidth = _videoSettings.width;
+            _windowHeight = _videoSettings.height;
             return initModule(parameters);
         }
 
@@ -84,6 +88,8 @@ namespace roguelike.modules {
                 aalevel = aalevel,
                 fullscreen = fullscrn
             };
+            _windowWidth = width;
+            _windowHeight = height;
             _reinitWindow = true;
         }
 

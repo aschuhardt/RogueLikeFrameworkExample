@@ -84,7 +84,7 @@ namespace roguelike.modules {
 
         private void drawStaticGlyphs() {
             //draw borders
-            _entities.AddRange(EntityDrawingMacros.drawWindowBorders(_videoSettings.width, _videoSettings.height, _borderForeColor, _borderBackColor, STATIC_LAYER));
+            _entities.AddRange(EntityDrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, _borderForeColor, _borderBackColor, STATIC_LAYER));
 
             //draw title
             string[] titleLines = EntityDrawingMacros.splitMultiLineDelimited(GlobalStatics.TITLE_ART);
