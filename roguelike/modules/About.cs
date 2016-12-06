@@ -33,7 +33,7 @@ namespace roguelike.modules {
         }
 
         protected override void runModule() {
-            if (InputFlagHelper.isInputFlagSet(_input, InputType.Escape)) {
+            if (testInput(InputType.Escape)) {
                 transitionToState(State.MainMenu);
             }
         }

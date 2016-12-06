@@ -5,11 +5,11 @@ using roguelike.entity;
 namespace roguelike.modules {
     abstract class ModuleBase : IModule {
         protected IList<IEntity> _entities;
-        protected InputType _input;
         protected uint _windowWidth;
         protected uint _windowHeight;
         protected string _keyPressed;
         private IList<object> _transferParams;
+        private InputType _input;
         private bool _closing;
         private State _nextState;
         private bool _reinitWindow;
@@ -108,6 +108,10 @@ namespace roguelike.modules {
             _closing = true;
             _transferParams = parameters;
             _nextState = nextState;
+        }
+
+        protected bool testInput(InputType inType) {
+            return InputFlagHelper.isInputFlagSet(_input, inType);
         }
 
         protected abstract State getModuleState();

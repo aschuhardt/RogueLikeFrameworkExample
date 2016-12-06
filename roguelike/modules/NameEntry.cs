@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 
 namespace roguelike.modules {
     class NameEntry : ModuleBase {
+        string _playerName;
+
         protected override State getModuleState() {
-            throw new NotImplementedException();
+            return State.NameEntry;
         }
 
         protected override bool initModule(IList<object> parameters) {
-            throw new NotImplementedException();
+            _playerName = "";
+
+            return true;
         }
 
         protected override void runModule() {
-            throw new NotImplementedException();
+            
         }
     }
 }

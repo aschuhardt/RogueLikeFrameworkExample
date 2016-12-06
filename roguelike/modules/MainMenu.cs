@@ -64,7 +64,7 @@ namespace roguelike.modules {
                 foreach (IEntity ent in nonMenuItems) {
                     _entities.Add(ent);
                 }
-                
+
                 //draw menu items
                 float menuLineOffset = 0.0f;
                 foreach (MenuOption opt in System.Enum.GetValues(typeof(MenuOption))) {
@@ -103,9 +103,9 @@ namespace roguelike.modules {
         private void processInput() {
             MenuOption[] options = (MenuOption[])System.Enum.GetValues(typeof(MenuOption));
             int selIndex = (int)_selectedOption;
-            bool downPressed = InputFlagHelper.isInputFlagSet(_input, InputType.Down);
-            bool upPressed = InputFlagHelper.isInputFlagSet(_input, InputType.Up);
-            bool enterPressed = InputFlagHelper.isInputFlagSet(_input, InputType.Enter);
+            bool downPressed = testInput(InputType.Down);
+            bool upPressed = testInput(InputType.Up);
+            bool enterPressed = testInput(InputType.Enter);
 
             if (!_scrollingDown && downPressed && selIndex < options.Length - 1) {
                 _selectedOption = options[selIndex + 1];
@@ -122,8 +122,8 @@ namespace roguelike.modules {
             } else if (_scrollingUp && !upPressed) {
                 _scrollingUp = !_scrollingUp;
             }
-            
-            if (enterPressed) {                
+
+            if (enterPressed) {
                 switch (_selectedOption) {
                     case MenuOption.Play:
                         transitionToState(State.Play);

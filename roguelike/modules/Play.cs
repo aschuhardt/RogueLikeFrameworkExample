@@ -15,6 +15,9 @@ namespace roguelike.modules {
                 transitionToState(State.NameEntry);
             }
 
+            //get player name from transition params
+            _playerName = _playerName[0].ToString();
+
 
 
             return true;
