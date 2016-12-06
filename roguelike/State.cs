@@ -4,6 +4,7 @@
         Test,
         Options,
         Play,
-        About
+        About,
+        NameEntry
     }
 }

@@ -17,5 +17,6 @@ namespace roguelike.modules {
         bool init(IList<object> parameters);
         void run();
         void setInput(InputType input);
+        string keyPressed { get; set; }
     }
 }

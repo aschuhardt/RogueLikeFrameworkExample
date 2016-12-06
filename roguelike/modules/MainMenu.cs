@@ -13,7 +13,7 @@ namespace roguelike.modules {
 
         private const string MENU_PREFIX_SELECTED = "> ";
         private const string MENU_PREFIX_NOTSELECTED = "  ";
-        private const float TITLE_X = 200.0f;
+        private const float TITLE_X = 130.0f;
         private const float TITLE_Y = 20.0f;
         private const float MENU_X = 64.0f;
         private const float MENU_Y = 250.0f;
@@ -38,12 +38,12 @@ namespace roguelike.modules {
 
         protected override bool initModule(IList<object> parameters) {
             //main menu state can't receive parameters
-            _borderForeColor = EntityColor.createRGB(255, 102, 0);
+            _borderForeColor = EntityColor.createRGB(10, 33, 23);
             _borderBackColor = EntityColor.createRGB(0, 0, 0);
-            _menuItemForeColor = EntityColor.createRGB(16, 75, 169);
+            _menuItemForeColor = EntityColor.createRGB(76, 103, 123);
             _menuItemBackColor = EntityColor.createRGB(0, 0, 0);
-            _titleForeColor = EntityColor.createRGB(198, 80, 0);
-            _titleBackColor = EntityColor.createRGB(7, 44, 103);
+            _titleForeColor = EntityColor.createRGB(192, 158, 113);
+            _titleBackColor = EntityColor.createRGB(10, 33, 23);
             _scrollingUp = false;
             _scrollingDown = false;
             _redrawMenu = true;
@@ -118,12 +118,7 @@ namespace roguelike.modules {
             } else if (_scrollingUp && !upPressed) {
                 _scrollingUp = !_scrollingUp;
             }
-
-            //TODO: Delete me!!!!!!!
-            if (InputFlagHelper.isInputFlagSet(_input, InputType.Right)) {
-                resizeWindow(320, 480, 16);
-            }
-
+            
             if (enterPressed) {
                 _closing = true;
 

@@ -10,7 +10,8 @@ namespace roguelike.manager {
         private IList<IEntity> _entities;
         private IModule _currentModule;
 
-        public InputType currentInput { private get; set; }
+        public InputType currentInput { get; set; }
+        public string keyPressed { get; set; }
         public bool shouldReInitializeWindow { get; private set; }
         public VideoSettings videoSettings { get; set; }
 
@@ -47,6 +48,7 @@ namespace roguelike.manager {
 
             //set state input
             _currentModule.setInput(currentInput);
+            _currentModule.keyPressed = keyPressed;
 
             //run the module's logic
             _currentModule.run();

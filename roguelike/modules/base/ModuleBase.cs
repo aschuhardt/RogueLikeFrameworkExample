@@ -11,6 +11,7 @@ namespace roguelike.modules {
         protected InputType _input;
         protected uint _windowWidth;
         protected uint _windowHeight;
+        protected string _keyPressed;
         private bool _reinitWindow;
         private VideoSettings _videoSettings;
 
@@ -60,6 +61,16 @@ namespace roguelike.modules {
 
             set {
                 _videoSettings = value;
+            }
+        }
+
+        public string keyPressed {
+            get {
+                return _keyPressed;
+            }
+
+            set {
+                _keyPressed = value;
             }
         }
 

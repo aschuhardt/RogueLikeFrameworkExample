@@ -57,6 +57,7 @@ namespace roguelike {
                     } else {
                         //send input to logic manager
                         _logicMan.currentInput = _inputMan.inputStatus;
+                        _logicMan.keyPressed = _inputMan.keyPressed;
 
                         //perform core game logic
                         _logicMan.run();

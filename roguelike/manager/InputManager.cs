@@ -13,7 +13,14 @@ namespace roguelike.manager {
             }
         }
         
+        public string keyPressed {
+            get {
+                return _keyPressed;
+            }
+        }
+
         private InputType _currentInput;
+        private string _keyPressed;
         private ICollection<InputType> _inputBuffer;
 
         public InputManager() {
@@ -69,6 +76,21 @@ namespace roguelike.manager {
                 default:
                     break;
             }
+
+            _keyPressed = getKeyPressedString(e.Code);
+            if (!e.Shift) _keyPressed = _keyPressed.ToLower();
+        }
+
+        private string getKeyPressedString(Keyboard.Key input) {
+            string result = "";
+            if (((int)input >= 1 && (int)input <= 25) || input == Keyboard.Key.Space) {
+                if (input == Keyboard.Key.Space) {
+                    result = " ";
+                } else {
+                    result = input.ToString();
+                }
+            }
+            return result;
         }
 
         public override void run() {
