@@ -1,23 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace roguelike.modules {
-    class Play : ModuleBase {
-        private string _playerName = "";
-
+    class NameEntry : ModuleBase {
         protected override State getModuleState() {
-            return State.Play;
+            throw new NotImplementedException();
         }
 
         protected override bool initModule(IList<object> parameters) {
-            if (parameters.Count == 0) {
-                //we didn't get player name, so transition to name entry module
-                transitionToState(State.NameEntry);
-            }
-
-
-
-            return true;
+            throw new NotImplementedException();
         }
 
         protected override void runModule() {

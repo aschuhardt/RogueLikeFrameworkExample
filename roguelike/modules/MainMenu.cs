@@ -61,8 +61,10 @@ namespace roguelike.modules {
                 //clear item layer from entities
                 IEnumerable<IEntity> nonMenuItems = new List<IEntity>(_entities.Where((x) => x.layer != MENU_OPTIONS_LAYER));
                 _entities.Clear();
-                _entities.AddRange(nonMenuItems);
-
+                foreach (IEntity ent in nonMenuItems) {
+                    _entities.Add(ent);
+                }
+                
                 //draw menu items
                 float menuLineOffset = 0.0f;
                 foreach (MenuOption opt in System.Enum.GetValues(typeof(MenuOption))) {
@@ -84,7 +86,9 @@ namespace roguelike.modules {
 
         private void drawStaticGlyphs() {
             //draw borders
-            _entities.AddRange(EntityDrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, _borderForeColor, _borderBackColor, STATIC_LAYER));
+            foreach (IEntity ent in EntityDrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, _borderForeColor, _borderBackColor, STATIC_LAYER)) {
+                _entities.Add(ent);
+            }
 
             //draw title
             string[] titleLines = EntityDrawingMacros.splitMultiLineDelimited(GlobalStatics.TITLE_ART);
@@ -119,18 +123,16 @@ namespace roguelike.modules {
                 _scrollingUp = !_scrollingUp;
             }
             
-            if (enterPressed) {
-                _closing = true;
-
+            if (enterPressed) {                
                 switch (_selectedOption) {
                     case MenuOption.Play:
-                        _nextState = State.Play;
+                        transitionToState(State.Play);
                         break;
                     case MenuOption.Options:
-                        _nextState = State.Options;
+                        transitionToState(State.Options);
                         break;
                     case MenuOption.About:
-                        _nextState = State.About;
+                        transitionToState(State.About);
                         break;
                     default:
                         break;

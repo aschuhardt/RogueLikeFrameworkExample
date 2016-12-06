@@ -80,6 +80,7 @@
     <Compile Include="modules\Interface\IModule.cs" />
     <Compile Include="modules\MainMenu.cs" />
     <Compile Include="modules\base\ModuleBase.cs" />
+    <Compile Include="modules\NameEntry.cs" />
     <Compile Include="modules\Options.cs" />
     <Compile Include="modules\Play.cs" />
     <Compile Include="modules\Test.cs" />

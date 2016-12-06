@@ -22,6 +22,9 @@ namespace roguelike {
                 case State.Play:
                     output = new Play();
                     break;
+                case State.NameEntry:
+                    output = new NameEntry();
+                    break;
                 default:
                     output = null;
                     break;

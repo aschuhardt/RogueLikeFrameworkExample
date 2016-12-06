@@ -4,14 +4,14 @@ using roguelike.entity;
 
 namespace roguelike.modules {
     abstract class ModuleBase : IModule {
-        protected List<IEntity> _entities;
-        protected List<object> _transferParams;
-        protected bool _closing;
-        protected State _nextState;
+        protected IList<IEntity> _entities;
         protected InputType _input;
         protected uint _windowWidth;
         protected uint _windowHeight;
         protected string _keyPressed;
+        private IList<object> _transferParams;
+        private bool _closing;
+        private State _nextState;
         private bool _reinitWindow;
         private VideoSettings _videoSettings;
 
@@ -102,6 +102,12 @@ namespace roguelike.modules {
             _windowWidth = width;
             _windowHeight = height;
             _reinitWindow = true;
+        }
+
+        protected void transitionToState(State nextState, IList<object> parameters = null) {
+            _closing = true;
+            _transferParams = parameters;
+            _nextState = nextState;
         }
 
         protected abstract State getModuleState();

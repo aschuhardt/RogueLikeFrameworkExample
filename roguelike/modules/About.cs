@@ -15,7 +15,9 @@ namespace roguelike.modules {
             //draw borders
             EntityColor borderForeColor = EntityColor.createRGB(255, 102, 0);
             EntityColor borderBackColor = EntityColor.createRGB(0, 0, 0);
-            _entities.AddRange(EntityDrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, borderForeColor, borderBackColor));
+            foreach (IEntity ent in EntityDrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, borderForeColor, borderBackColor)) {
+                _entities.Add(ent);
+            }
 
             //draw about text
             string[] aboutText = EntityDrawingMacros.splitMultiLineDelimited(GlobalStatics.ABOUT_TEXT);
@@ -32,8 +34,7 @@ namespace roguelike.modules {
 
         protected override void runModule() {
             if (InputFlagHelper.isInputFlagSet(_input, InputType.Escape)) {
-                _closing = true;
-                _nextState = State.MainMenu;
+                transitionToState(State.MainMenu);
             }
         }
     }
