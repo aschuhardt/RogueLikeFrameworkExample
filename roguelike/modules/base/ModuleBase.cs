@@ -9,8 +9,8 @@ namespace roguelike.modules {
         protected bool _closing;
         protected State _nextState;
         protected InputType _input;
-        protected bool _reinitWindow;
-        protected VideoSettings _videoSettings;
+        private bool _reinitWindow;
+        private VideoSettings _videoSettings;
 
         public bool closing {
             get {
@@ -75,6 +75,16 @@ namespace roguelike.modules {
             _transferParams = new List<object>();
             _reinitWindow = false;
             _videoSettings = null;
+        }
+
+        protected void resizeWindow(uint width, uint height, uint aalevel = 0, bool fullscrn = false) {
+            _videoSettings = new VideoSettings() {
+                width = width,
+                height = height,
+                aalevel = aalevel,
+                fullscreen = fullscrn
+            };
+            _reinitWindow = true;
         }
 
         protected abstract State getModuleState();

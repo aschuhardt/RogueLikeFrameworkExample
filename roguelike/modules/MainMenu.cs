@@ -121,13 +121,7 @@ namespace roguelike.modules {
 
             //TODO: Delete me!!!!!!!
             if (InputFlagHelper.isInputFlagSet(_input, InputType.Right)) {
-                _videoSettings = new VideoSettings() {
-                    width = 480,
-                    height = 320,
-                    aalevel = 0,
-                    fullscreen = true
-                };
-                _reinitWindow = true;
+                resizeWindow(320, 480, 16);
             }
 
             if (enterPressed) {
