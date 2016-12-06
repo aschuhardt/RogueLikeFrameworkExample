@@ -33,7 +33,7 @@
         public const string ABOUT_TEXT =
               "About:" + LINE_DELIMITER
             + "This is a test of a text-based game framework developed using SFML." + LINE_DELIMITER
-            + "See https://github.com/aschuhardt for information and source." + LINE_DELIMITER
+            + "See https://github.com/aschuhardt/Turion for information and source." + LINE_DELIMITER
             + "Press ESC to go back to the main menu.";
     }
 }
