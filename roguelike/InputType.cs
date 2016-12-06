@@ -20,7 +20,7 @@ namespace roguelike {
         public static bool isInputFlagSet(InputType input, InputType inputToCheckFor) {
             return ((input & inputToCheckFor) != InputType.None);
         }
-        asdfasdf
+
         public static void setFlag(ref InputType input, InputType inputToAdd) {
             input |= inputToAdd;
         }
