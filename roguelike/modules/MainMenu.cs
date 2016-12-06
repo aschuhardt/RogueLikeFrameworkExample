@@ -125,7 +125,7 @@ namespace roguelike.modules {
                     width = 480,
                     height = 320,
                     aalevel = 0,
-                    fullscreen = false
+                    fullscreen = true
                 };
                 _reinitWindow = true;
             }

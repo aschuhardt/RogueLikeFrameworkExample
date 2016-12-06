@@ -17,8 +17,8 @@ namespace roguelike.entity {
             int tileWidth = GlobalStatics.FONT_WIDTH;
             int tileHeight = GlobalStatics.FONT_HEIGHT;
 
-            for (int x = Convert.ToInt32(x1 / tileWidth); x <= x2 / tileWidth; x++) {
-                for (int y = Convert.ToInt32(y1 / tileHeight); y <= y2 / tileHeight; y++) {
+            for (int x = Convert.ToInt32(x1 / tileWidth); x <= Math.Round(x2 / tileWidth); x++) {
+                for (int y = Convert.ToInt32(y1 / tileHeight); y <= Math.Round(y2 / tileHeight); y++) {
                     FlexibleEntity ent = new FlexibleEntity(glyph.ToString(), foreColor, backColor, x * tileWidth, y * tileHeight, layer);
                     result.Add(ent);
                 }

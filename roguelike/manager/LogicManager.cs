@@ -36,6 +36,7 @@ namespace roguelike.manager {
             //transit states if needed
             if (_currentModule.closing) {
                 IModule nextState = StateMapper.TransitToState(_currentModule.nextStateType);
+                nextState.videoSettings = videoSettings;
                 if (nextState.init(_currentModule.transferParameters)) {
                     _currentModule = nextState;
                 } else {
@@ -59,6 +60,9 @@ namespace roguelike.manager {
                 foreach (IEntity ent in _currentModule.entities) _entities.Add(ent);
             } else {
                 videoSettings = _currentModule.videoSettings;
+                //reinitialize window with new settings
+                //Note: make sure that whatever is being reinitialized here doesn't reset its own parameters in init()
+                _currentModule.init(null);
             }
         }
 
