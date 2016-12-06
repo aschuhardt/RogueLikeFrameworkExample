@@ -12,10 +12,12 @@ namespace roguelike.manager {
                 return _currentInput;
             }
         }
-        
+
         public string keyPressed {
             get {
-                return _keyPressed;
+                string keyChar = _keyPressed;
+                _keyPressed = "";
+                return keyChar;
             }
         }
 
@@ -73,6 +75,9 @@ namespace roguelike.manager {
                 case Keyboard.Key.Escape:
                     _inputBuffer.Add(InputType.Escape);
                     break;
+                case Keyboard.Key.Back:
+                    _inputBuffer.Add(InputType.BackSpace);
+                    break;
                 default:
                     break;
             }
@@ -83,7 +88,8 @@ namespace roguelike.manager {
 
         private string getKeyPressedString(Keyboard.Key input) {
             string result = "";
-            if (((int)input >= 1 && (int)input <= 25) || input == Keyboard.Key.Space) {
+
+            if (((int)input >= 0 && (int)input <= 25) || input == Keyboard.Key.Space) {
                 if (input == Keyboard.Key.Space) {
                     result = " ";
                 } else {

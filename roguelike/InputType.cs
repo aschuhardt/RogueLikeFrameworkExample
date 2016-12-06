@@ -10,7 +10,8 @@ namespace roguelike {
         Left = 8,
         Right = 16,
         Enter = 32,
-        Escape = 64
+        Escape = 64,
+        BackSpace = 128
     }
 
     class InputFlagHelper {

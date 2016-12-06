@@ -10,21 +10,20 @@ namespace roguelike.modules {
         }
 
         protected override bool initModule(IList<object> parameters) {
-            if (parameters.Count == 0) {
+            if (parameters == null) {
                 //we didn't get player name, so transition to name entry module
                 transitionToState(State.NameEntry);
+            } else {
+                //get player name from transition params
+                _playerName = parameters[0].ToString();
             }
-
-            //get player name from transition params
-            _playerName = _playerName[0].ToString();
-
 
 
             return true;
         }
 
         protected override void runModule() {
-            throw new NotImplementedException();
+           
         }
     }
 }
