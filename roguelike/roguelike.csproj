@@ -77,7 +77,7 @@
     <Compile Include="manager\LogicManager.cs" />
     <Compile Include="manager\ManagerBase.cs" />
     <Compile Include="modules\About.cs" />
-    <Compile Include="modules\Interface\IModule.cs" />
+    <Compile Include="modules\interface\IModule.cs" />
     <Compile Include="modules\MainMenu.cs" />
     <Compile Include="modules\base\ModuleBase.cs" />
     <Compile Include="modules\NameEntry.cs" />
@@ -99,7 +99,7 @@
     <None Include="typeface\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="modules\game\" />
+    <Folder Include="modules\game_core\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Baseclass.Contrib.Nuget.Output.2.2.0-xbuild02\build\net40\Baseclass.Contrib.Nuget.Output.targets" Condition="Exists('..\packages\Baseclass.Contrib.Nuget.Output.2.2.0-xbuild02\build\net40\Baseclass.Contrib.Nuget.Output.targets')" />
