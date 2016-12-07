@@ -77,6 +77,12 @@
     <Compile Include="manager\LogicManager.cs" />
     <Compile Include="manager\ManagerBase.cs" />
     <Compile Include="modules\About.cs" />
+    <Compile Include="modules\game_core\item\base\ItemBase.cs" />
+    <Compile Include="modules\game_core\item\interface\IItem.cs" />
+    <Compile Include="modules\game_core\map\base\MapBase.cs" />
+    <Compile Include="modules\game_core\map\interface\IMap.cs" />
+    <Compile Include="modules\game_core\player\base\PlayerBase.cs" />
+    <Compile Include="modules\game_core\player\interface\IPlayer.cs" />
     <Compile Include="modules\interface\IModule.cs" />
     <Compile Include="modules\MainMenu.cs" />
     <Compile Include="modules\base\ModuleBase.cs" />
@@ -99,7 +105,8 @@
     <None Include="typeface\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="modules\game_core\" />
+    <Folder Include="modules\game_core\npc\base\" />
+    <Folder Include="modules\game_core\npc\interface\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Baseclass.Contrib.Nuget.Output.2.2.0-xbuild02\build\net40\Baseclass.Contrib.Nuget.Output.targets" Condition="Exists('..\packages\Baseclass.Contrib.Nuget.Output.2.2.0-xbuild02\build\net40\Baseclass.Contrib.Nuget.Output.targets')" />
