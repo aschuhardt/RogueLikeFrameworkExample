@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using roguelike.manager;
 
 namespace roguelike {
+    /// <summary>
+    /// The top-level engine of this game framework.
+    /// Manages the behavior of and interactions between Logic, Input, and Drawing managers.
+    /// </summary>
     class Game {
         public string errorMessage { get; }
-
         private bool _shouldQuit = false;
         private bool _initSuccess = false;
         private DrawManager _drawMan;
@@ -16,6 +15,11 @@ namespace roguelike {
         private InputManager _inputMan;
         private VideoSettings _defaultVideoSettings;
 
+        /// <summary>
+        /// The Game object's constructor.
+        /// Initializes manager objects, and sets video settings to their default values.
+        /// If any manager fails to initialize, its error message will be appended onto the "errorMessage" string that is a member of this object here.
+        /// </summary>
         public Game() {
             _drawMan = new DrawManager();
             _logicMan = new LogicManager();
@@ -41,6 +45,10 @@ namespace roguelike {
 
         }
 
+        /// <summary>
+        /// Begins and maintains the main input/logic/drawing loop for the Game.
+        /// If any managers failed to initialize in the Game object's constructor, then their error messages will be printed to the console at the start of this method.
+        /// </summary>
         public void run() {
             if (!_initSuccess) {
                 //display error information to console
@@ -80,6 +88,10 @@ namespace roguelike {
             }
         }
 
+        /// <summary>
+        /// Executes initialization procedures.
+        /// </summary>
+        /// <returns></returns>
         private bool init() {
             bool result = true;
 

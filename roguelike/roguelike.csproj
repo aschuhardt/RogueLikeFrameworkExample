@@ -77,6 +77,7 @@
     <Compile Include="manager\LogicManager.cs" />
     <Compile Include="manager\ManagerBase.cs" />
     <Compile Include="modules\About.cs" />
+    <Compile Include="modules\game_core\DamageType.cs" />
     <Compile Include="modules\game_core\item\base\ItemBase.cs" />
     <Compile Include="modules\game_core\item\interface\IItem.cs" />
     <Compile Include="modules\game_core\map\base\MapBase.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="modules\game_core\npc\interface\INPC.cs" />
     <Compile Include="modules\game_core\player\base\PlayerBase.cs" />
     <Compile Include="modules\game_core\player\interface\IPlayer.cs" />
+    <Compile Include="modules\game_core\player\Player.cs" />
     <Compile Include="modules\interface\IModule.cs" />
     <Compile Include="modules\MainMenu.cs" />
     <Compile Include="modules\base\ModuleBase.cs" />
