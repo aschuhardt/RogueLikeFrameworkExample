@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using roguelike.entity;
-using roguelike.entity.entitycolor;
 
 namespace roguelike.modules {
     class MainMenu : ModuleBase {
@@ -18,16 +16,8 @@ namespace roguelike.modules {
         private const float MENU_X = 64.0f;
         private const float MENU_Y = 250.0f;
         private const float MENU_ITEM_SPACING = 16.0f;
-        private const float MENU_OPTIONS_LAYER = 1.0f;
-        private const float STATIC_LAYER = -1.0f;
 
         private MenuOption _selectedOption;
-        private EntityColor _borderForeColor;
-        private EntityColor _borderBackColor;
-        private EntityColor _menuItemForeColor;
-        private EntityColor _menuItemBackColor;
-        private EntityColor _titleForeColor;
-        private EntityColor _titleBackColor;
         private bool _scrollingUp;
         private bool _scrollingDown;
         private bool _redrawMenu;
@@ -38,12 +28,6 @@ namespace roguelike.modules {
 
         protected override bool initModule(IList<object> parameters) {
             //main menu state can't receive parameters
-            _borderForeColor = EntityColor.createRGB(10, 33, 23);
-            _borderBackColor = EntityColor.createRGB(0, 0, 0);
-            _menuItemForeColor = EntityColor.createRGB(76, 103, 123);
-            _menuItemBackColor = EntityColor.createRGB(0, 0, 0);
-            _titleForeColor = EntityColor.createRGB(192, 158, 113);
-            _titleBackColor = EntityColor.createRGB(10, 33, 23);
             _scrollingUp = false;
             _scrollingDown = false;
             _redrawMenu = true;
@@ -59,11 +43,7 @@ namespace roguelike.modules {
 
             if (_redrawMenu) {
                 //clear item layer from entities
-                IEnumerable<IEntity> nonMenuItems = new List<IEntity>(_entities.Where((x) => x.layer != MENU_OPTIONS_LAYER));
-                _entities.Clear();
-                foreach (IEntity ent in nonMenuItems) {
-                    _entities.Add(ent);
-                }
+                clearEntities();
 
                 //draw menu items
                 float menuLineOffset = 0.0f;
@@ -75,7 +55,7 @@ namespace roguelike.modules {
                         menuLineText += MENU_PREFIX_NOTSELECTED;
                     }
                     menuLineText += opt.ToString();
-                    _entities.Add(new FlexibleEntity(menuLineText, _menuItemForeColor, _menuItemBackColor, MENU_X, MENU_Y + menuLineOffset, MENU_OPTIONS_LAYER));
+                    addEntity(menuLineText, Colors.DarkText_ForeColor, Colors.DarkText_BackColor, MENU_X, MENU_Y + menuLineOffset);
                     menuLineOffset += MENU_ITEM_SPACING;
 
                     _redrawMenu = false;
@@ -86,16 +66,14 @@ namespace roguelike.modules {
 
         private void drawStaticGlyphs() {
             //draw borders
-            foreach (IEntity ent in EntityDrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, _borderForeColor, _borderBackColor, STATIC_LAYER)) {
-                _entities.Add(ent);
-            }
+            drawBorders();
 
             //draw title
             string[] titleLines = EntityDrawingMacros.splitMultiLineDelimited(GlobalStatics.TITLE_ART);
             int lineIndex = 0;
             foreach (string line in titleLines) {
-                IEntity lineEnt = new FlexibleEntity(line, _titleForeColor, _titleBackColor, TITLE_X, TITLE_Y + lineIndex, STATIC_LAYER);
-                _entities.Add(lineEnt);
+                float titleLeft = _windowWidth / 2 - ((line.Length * GlobalStatics.FONT_WIDTH) / 2);
+                addEntity(line, Colors.Title_ForeColor, Colors.Title_BackColor, titleLeft, TITLE_Y + lineIndex, true);
                 lineIndex += GlobalStatics.FONT_HEIGHT;
             }
         }

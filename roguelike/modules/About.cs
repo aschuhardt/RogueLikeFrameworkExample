@@ -13,21 +13,14 @@ namespace roguelike.modules {
 
         protected override bool initModule(IList<object> parameters) {
             //draw borders
-            EntityColor borderForeColor = EntityColor.createRGB(255, 102, 0);
-            EntityColor borderBackColor = EntityColor.createRGB(0, 0, 0);
-            foreach (IEntity ent in EntityDrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, borderForeColor, borderBackColor)) {
-                _entities.Add(ent);
-            }
+            drawBorders();
 
             //draw about text
             string[] aboutText = EntityDrawingMacros.splitMultiLineDelimited(GlobalStatics.ABOUT_TEXT);
             int lineOffset = 0;
-            EntityColor aboutTextForeColor = EntityColor.createRGB(16, 75, 169);
-            EntityColor aboutTextBackColor = EntityColor.createRGB(0, 0, 0);
             foreach (string line in aboutText) {
-                IEntity lineEnt = new FlexibleEntity(line, aboutTextForeColor, aboutTextBackColor, TEXT_X, TEXT_Y + lineOffset);
+                addEntity(line, Colors.LightText_ForeColor, Colors.LightText_BackColor, TEXT_X, TEXT_Y + lineOffset);
                 lineOffset += GlobalStatics.FONT_HEIGHT;
-                _entities.Add(lineEnt);
             }
             return true;
         }

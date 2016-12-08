@@ -42,26 +42,16 @@ namespace roguelike.modules {
         }
 
         private void drawPlayerName() {
-            //clear old name text but avoid recreating everything else
-            IEnumerable<IEntity> staticText = new List<IEntity>(_entities.Where((x) => x.layer != NAME_INPUT_LAYER));
-            _entities.Clear();
-            foreach (IEntity ent in staticText) {
-                _entities.Add(ent);
-            }
-
-            EntityColor nameForeColor = EntityColor.createRGB(192, 158, 113);
-            EntityColor nameBackColor = EntityColor.createRGB(0, 0, 0);
+            clearEntities();
             string nameDisplay = _playerName + PROMPT_CHARACTER;
             float left = _windowWidth / 2 - ((nameDisplay.Length * GlobalStatics.FONT_WIDTH) / 2);
-            _entities.Add(new FlexibleEntity(nameDisplay, nameForeColor, nameBackColor, left, NAME_Y, NAME_INPUT_LAYER));
+            addEntity(nameDisplay, Colors.LightText_ForeColor, Colors.LightText_BackColor, left, NAME_Y);
         }
 
         private void drawPrompt() {
-            EntityColor promptForeColor = EntityColor.createRGB(76, 103, 123);
-            EntityColor promptBackColor = EntityColor.createRGB(0, 0, 0);
             string promptText = "Type your name, then press ENTER:";
             float promptLeft = _windowWidth / 2 - ((promptText.Length * GlobalStatics.FONT_WIDTH) / 2);
-            _entities.Add(new FlexibleEntity(promptText, promptForeColor, promptBackColor, promptLeft, PROMPT_Y));
+            addEntity(promptText, Colors.DarkText_ForeColor, Colors.DarkText_BackColor, promptLeft, PROMPT_Y);
         }
     }
 }

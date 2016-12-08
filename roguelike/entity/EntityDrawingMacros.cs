@@ -7,11 +7,11 @@ using SFML.Graphics;
 
 namespace roguelike.entity {
     class EntityDrawingMacros {
-        private const char BORDER_CHARACTER = '#';
+        private const string BORDER_CHARACTER = "#";
 
         private EntityDrawingMacros() { }
 
-        public static IEntity[] drawRect(char glyph, EntityColor foreColor, EntityColor backColor, float x1, float y1, float x2, float y2, float layer = 0.0f) {
+        public static IEntity[] drawRect(string glyph, EntityColor foreColor, EntityColor backColor, float x1, float y1, float x2, float y2, float layer = 0.0f) {
             List<IEntity> result = new List<IEntity>();
 
             int tileWidth = GlobalStatics.FONT_WIDTH;
@@ -19,7 +19,7 @@ namespace roguelike.entity {
 
             for (int x = Convert.ToInt32(x1 / tileWidth); x <= Math.Round(x2 / tileWidth); x++) {
                 for (int y = Convert.ToInt32(y1 / tileHeight); y <= Math.Round(y2 / tileHeight); y++) {
-                    FlexibleEntity ent = new FlexibleEntity(glyph.ToString(), foreColor, backColor, x * tileWidth, y * tileHeight, layer);
+                    FlexibleEntity ent = new FlexibleEntity(glyph, foreColor, backColor, x * tileWidth, y * tileHeight, layer);
                     result.Add(ent);
                 }
             }

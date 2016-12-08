@@ -77,6 +77,8 @@
     <Compile Include="manager\LogicManager.cs" />
     <Compile Include="manager\ManagerBase.cs" />
     <Compile Include="modules\About.cs" />
+    <Compile Include="modules\base\ColorMapper.cs" />
+    <Compile Include="modules\base\Colors.cs" />
     <Compile Include="modules\game_core\DamageType.cs" />
     <Compile Include="modules\game_core\item\base\ItemBase.cs" />
     <Compile Include="modules\game_core\item\interface\IItem.cs" />
