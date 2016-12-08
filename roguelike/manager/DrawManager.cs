@@ -6,6 +6,9 @@ using SFML.Window;
 using SFML.Graphics;
 using System;
 namespace roguelike.manager {
+    /// <summary>
+    /// Manages window initialization and runs drawing routines.
+    /// </summary>
     class DrawManager : ManagerBase {
 
         private RenderWindow _window;
@@ -26,12 +29,20 @@ namespace roguelike.manager {
             }
         }
 
+        /// <summary>
+        /// The constructor for the DrawManager object.
+        /// Initializes the entity buffer, as well as the entityBufferSet and windowInitialized flags.
+        /// </summary>
         public DrawManager() {
             _entityBuffer = new List<IEntity>();
             _entityBufferSet = false;
             _windowInitialized = false;
         }
 
+        /// <summary>
+        /// Initializes the SFML window and loads the default font.
+        /// </summary>
+        /// <returns>True if successful, false if not.</returns>
         public bool init() {
             try {
                 initWindow();
@@ -43,11 +54,19 @@ namespace roguelike.manager {
             }
         }
 
+        /// <summary>
+        /// Populates the DrawManager's collection of IEntity objects that will be drawn on the window.
+        /// </summary>
+        /// <param name="entities"></param>
         public void setEntityBuffer(IEnumerable<IEntity> entities) {
             foreach (IEntity ent in entities) _entityBuffer.Add(ent);
             _entityBufferSet = true;
         }
 
+        /// <summary>
+        /// Checks that the Window has been opened and the entity buffer has been set, then performs all of the routines necessary to draw a single frame.
+        /// Clears the entity buffer after drawing has completed and resets the _entityBufferSet to false.
+        /// </summary>
         public override void run() {
             if (!_window.IsOpen()) return;
 
@@ -97,6 +116,10 @@ namespace roguelike.manager {
             initWindow(defaultVideoSettings);
         }
 
+        /// <summary>
+        /// Initializes the window with a given set of video settings.
+        /// </summary>
+        /// <param name="settings">The video settings to use for confuring the window.</param>
         public void initWindow(VideoSettings settings) {
             Styles windowStyle = Styles.Close | Styles.Titlebar;
             if (settings.fullscreen) {
@@ -117,6 +140,9 @@ namespace roguelike.manager {
             _window.SetActive(true);
         }
 
+        /// <summary>
+        /// Loads the font.
+        /// </summary>
         private void initFont() {
             _font = new Font(GlobalStatics.FONT_PATH);
         }
