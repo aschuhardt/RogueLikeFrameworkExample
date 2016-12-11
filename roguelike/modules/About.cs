@@ -7,8 +7,8 @@ namespace roguelike.modules {
         private const float TEXT_X = 64;
         private const float TEXT_Y = 64;
 
-        protected override State getModuleState() {
-            return State.About;
+        protected override string getModuleState() {
+            return "roguelike.modules.About";
         }
 
         protected override bool initModule(IList<object> parameters) {
@@ -27,7 +27,7 @@ namespace roguelike.modules {
 
         protected override void runModule() {
             if (testInput(InputType.Escape)) {
-                transitionToState(State.MainMenu);
+                transitionToState("roguelike.modules.MainMenu");
             }
         }
     }

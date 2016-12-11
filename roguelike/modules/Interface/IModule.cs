@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace roguelike.modules {
     interface IModule {
         bool closing { get; }
-        State moduleState { get; }
-        State nextStateType { get; }
+        string moduleState { get; }
+        string nextStateType { get; }
         IEnumerable<IEntity> entities { get; }
         IList<object> transferParameters { get; }
         bool shouldReInitializeWindow { get; }

@@ -12,8 +12,8 @@ namespace roguelike.modules {
         private const float NAME_Y = 300;
         private string _playerName;
 
-        protected override State getModuleState() {
-            return State.NameEntry;
+        protected override string getModuleState() {
+            return "roguelike.modules.NameEntry";
         }
 
         protected override bool initModule(IList<object> parameters) {
@@ -32,7 +32,7 @@ namespace roguelike.modules {
             } else if (testInput(InputType.Enter)) {
                 IList<object> paramList = new List<object>();
                 paramList.Add(_playerName);
-                transitionToState(State.Play, paramList);
+                transitionToState("roguelike.modules.Play", paramList);
                 redraw = false;
             } else {
                 redraw = false;

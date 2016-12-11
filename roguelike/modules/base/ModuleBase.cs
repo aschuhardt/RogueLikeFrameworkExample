@@ -11,7 +11,7 @@ namespace roguelike.modules {
         private IList<object> _transferParams;
         private InputType _input;
         private bool _closing;
-        private State _nextState;
+        private string _nextState;
         private bool _reinitWindow;
         private VideoSettings _videoSettings;
 
@@ -31,13 +31,13 @@ namespace roguelike.modules {
             }
         }
 
-        public State moduleState {
+        public string moduleState {
             get {
                 return getModuleState();
             }
         }
 
-        public State nextStateType {
+        public string nextStateType {
             get {
                 return _nextState;
             }
@@ -108,7 +108,7 @@ namespace roguelike.modules {
             _reinitWindow = true;
         }
 
-        protected void transitionToState(State nextState, IList<object> parameters = null) {
+        protected void transitionToState(string nextState, IList<object> parameters = null) {
             _closing = true;
             _transferParams = parameters;
             _nextState = nextState;
@@ -160,7 +160,7 @@ namespace roguelike.modules {
             }
         }
 
-        protected abstract State getModuleState();
+        protected abstract string getModuleState();
         protected abstract bool initModule(IList<object> parameters);
         protected abstract void runModule();
 

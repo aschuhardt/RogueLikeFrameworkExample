@@ -5,14 +5,14 @@ namespace roguelike.modules {
     class Play : ModuleBase {
         private string _playerName = "";
 
-        protected override State getModuleState() {
-            return State.Play;
+        protected override string getModuleState() {
+            return "roguelike.modules.play";
         }
 
         protected override bool initModule(IList<object> parameters) {
             if (parameters == null) {
                 //we didn't get player name, so transition to name entry module
-                transitionToState(State.NameEntry);
+                transitionToState("roguelike.modules.NameEntry");
             } else {
                 //get player name from transition params
                 _playerName = parameters[0].ToString();

@@ -22,8 +22,8 @@ namespace roguelike.modules {
         private bool _scrollingDown;
         private bool _redrawMenu;
 
-        protected override State getModuleState() {
-            return State.MainMenu;
+        protected override string getModuleState() {
+            return "roguelike.modules.MainMenu";
         }
 
         protected override bool initModule(IList<object> parameters) {
@@ -104,13 +104,13 @@ namespace roguelike.modules {
             if (enterPressed) {
                 switch (_selectedOption) {
                     case MenuOption.Play:
-                        transitionToState(State.Play);
+                        transitionToState("roguelike.modules.Play");
                         break;
                     case MenuOption.Options:
-                        transitionToState(State.Options);
+                        transitionToState("roguelike.modules.Options");
                         break;
                     case MenuOption.About:
-                        transitionToState(State.About);
+                        transitionToState("roguelike.modules.About");
                         break;
                     default:
                         break;

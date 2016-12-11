@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace roguelike.manager {
     class LogicManager : ManagerBase {
-        private const State DEFAULT_STATE = State.MainMenu;
+        private const string DEFAULT_STATE = "roguelike.modules.MainMenu";
 
         private IList<IEntity> _entities;
         private IModule _currentModule;
