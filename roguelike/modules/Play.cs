@@ -18,7 +18,7 @@ namespace roguelike.modules {
                 _playerName = parameters[0].ToString();
             }
 
-
+            addEntity($"Hello {_playerName}!", Colors.LightText_ForeColor, Colors.LightText_BackColor, 100, 100, true);
             return true;
         }
 

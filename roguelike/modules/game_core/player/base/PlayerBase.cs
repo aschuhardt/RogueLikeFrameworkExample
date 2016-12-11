@@ -10,8 +10,38 @@ namespace roguelike.modules.game_core.player {
             }
         }
 
+        public int x {
+            get {
+                throw new NotImplementedException();
+            }
+
+            set {
+                throw new NotImplementedException();
+            }
+        }
+
+        public int y {
+            get {
+                throw new NotImplementedException();
+            }
+
+            set {
+                throw new NotImplementedException();
+            }
+        }
+
+        public float hitpoints {
+            get {
+                throw new NotImplementedException();
+            }
+        }
+
         protected PlayerBase() {
             _id = Guid.NewGuid();
+        }
+
+        public bool takeDamage(float amount, DamageType dmgType) {
+            throw new NotImplementedException();
         }
     }
 }

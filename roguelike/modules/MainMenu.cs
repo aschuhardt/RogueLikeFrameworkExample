@@ -32,7 +32,7 @@ namespace roguelike.modules {
             _scrollingDown = false;
             _redrawMenu = true;
 
-            drawStaticGlyphs();
+            drawStaticEntities();
 
             _selectedOption = MenuOption.Play;
             return true;
@@ -64,7 +64,7 @@ namespace roguelike.modules {
             }
         }
 
-        private void drawStaticGlyphs() {
+        private void drawStaticEntities() {
             //draw borders
             drawBorders();
 

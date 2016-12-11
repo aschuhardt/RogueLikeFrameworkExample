@@ -51,7 +51,7 @@ namespace roguelike.modules {
         private void drawPrompt() {
             string promptText = "Type your name, then press ENTER:";
             float promptLeft = _windowWidth / 2 - ((promptText.Length * GlobalStatics.FONT_WIDTH) / 2);
-            addEntity(promptText, Colors.DarkText_ForeColor, Colors.DarkText_BackColor, promptLeft, PROMPT_Y);
+            addEntity(promptText, Colors.DarkText_ForeColor, Colors.DarkText_BackColor, promptLeft, PROMPT_Y, true);
         }
     }
 }
