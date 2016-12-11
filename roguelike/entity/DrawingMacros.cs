@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using roguelike.entity;
-using roguelike.entity.entitycolor;
-using roguelike.manager;
+using RoguePanda.entity;
+using RoguePanda.entity.entitycolor;
+using RoguePanda.manager;
 using SFML.Graphics;
 
-namespace roguelike.entity {
-    class EntityDrawingMacros {
+namespace RoguePanda.entity {
+    class DrawingMacros {
         private const string BORDER_CHARACTER = "#";
 
-        private EntityDrawingMacros() { }
+        private DrawingMacros() { }
 
-        public static IEntity[] drawRect(string glyph, EntityColor foreColor, EntityColor backColor, float x1, float y1, float x2, float y2, float layer = 0.0f) {
-            List<IEntity> result = new List<IEntity>();
+        public static IDrawObject[] drawRect(string glyph, EntityColor foreColor, EntityColor backColor, float x1, float y1, float x2, float y2, float layer = 0.0f) {
+            List<IDrawObject> result = new List<IDrawObject>();
 
             int tileWidth = GlobalStatics.FONT_WIDTH;
             int tileHeight = GlobalStatics.FONT_HEIGHT;
@@ -27,8 +27,8 @@ namespace roguelike.entity {
             return result.ToArray();
         }
 
-        public static IEntity[] drawWindowBorders(uint width, uint height, EntityColor borderForeColor, EntityColor borderBackColor, float layer = 0.0f) {
-            List<IEntity> result = new List<IEntity>();
+        public static IDrawObject[] drawWindowBorders(uint width, uint height, EntityColor borderForeColor, EntityColor borderBackColor, float layer = 0.0f) {
+            List<IDrawObject> result = new List<IDrawObject>();
             int fontHeight = GlobalStatics.FONT_HEIGHT;
             int fontWidth = GlobalStatics.FONT_WIDTH;
 

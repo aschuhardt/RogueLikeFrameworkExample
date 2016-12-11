@@ -1,13 +1,13 @@
 ﻿using System;
-using roguelike.entity;
-using roguelike.modules;
+using RoguePanda.entity;
+using RoguePanda.modules;
 using System.Collections.Generic;
 
-namespace roguelike.manager {
+namespace RoguePanda.manager {
     class LogicManager : ManagerBase {
         private const string DEFAULT_STATE = "roguelike.modules.MainMenu";
 
-        private IList<IEntity> _entities;
+        private IList<IDrawObject> _entities;
         private IModule _currentModule;
 
         public InputType currentInput { get; set; }
@@ -16,7 +16,7 @@ namespace roguelike.manager {
         public VideoSettings videoSettings { get; set; }
 
         public LogicManager() {
-            _entities = new List<IEntity>();
+            _entities = new List<IDrawObject>();
         }
 
         public bool init() {
@@ -59,7 +59,7 @@ namespace roguelike.manager {
             //wait until the window has a chance to reinitialize before sending the entities for drawing
             if (!shouldReInitializeWindow) {
                 //cache entities created by module
-                foreach (IEntity ent in _currentModule.entities) _entities.Add(ent);
+                foreach (IDrawObject ent in _currentModule.entities) _entities.Add(ent);
             } else {
                 videoSettings = _currentModule.videoSettings;
                 //reinitialize window with new settings
@@ -68,7 +68,7 @@ namespace roguelike.manager {
             }
         }
 
-        public IEnumerable<IEntity> getEntities() {
+        public IEnumerable<IDrawObject> getEntities() {
             return _entities;
         }
 

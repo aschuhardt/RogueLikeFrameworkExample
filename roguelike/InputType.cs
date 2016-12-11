@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace roguelike {
+namespace RoguePanda {
     /// <summary>
     /// Abstractions of various types of user-inputs that can be detected by InputManager and processed by modules.
     /// Provides a means by which to keep modules separate from the SFML binaries.

@@ -1,4 +1,4 @@
-﻿namespace roguelike {
+﻿namespace RoguePanda {
     /// <summary>
     /// Transfer object used to contain info about the state of the game's Window object.
     /// </summary>

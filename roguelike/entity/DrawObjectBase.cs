@@ -1,12 +1,12 @@
-﻿using roguelike.entity.entitycolor;
+﻿using RoguePanda.entity.entitycolor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace roguelike.entity {
-    class EntityBase : IEntity {
+namespace RoguePanda.entity {
+    class DrawObjectBase : IDrawObject {
         protected string _content;
         protected EntityColor _foreColor;
         protected EntityColor _backColor;
@@ -14,25 +14,25 @@ namespace roguelike.entity {
         protected float _y;
         protected float _layer;
 
-        string IEntity.contents {
+        string IDrawObject.contents {
             get {
                 return _content;
             }
         }
 
-        EntityColor IEntity.foreColor {
+        EntityColor IDrawObject.foreColor {
             get {
                 return _foreColor;
             }
         }
 
-        EntityColor IEntity.backColor {
+        EntityColor IDrawObject.backColor {
             get {
                 return _backColor;
             }
         }
 
-        float IEntity.x {
+        float IDrawObject.x {
             get {
                 return _x;
             }
@@ -42,7 +42,7 @@ namespace roguelike.entity {
             }
         }
 
-        float IEntity.y {
+        float IDrawObject.y {
             get {
                 return _y;
             }
@@ -52,7 +52,7 @@ namespace roguelike.entity {
             }
         }
 
-        float IEntity.layer {
+        float IDrawObject.layer {
             get {
                 return _layer;
             }
@@ -62,6 +62,6 @@ namespace roguelike.entity {
             }
         }
 
-        protected EntityBase() { }
+        protected DrawObjectBase() { }
     }
 }

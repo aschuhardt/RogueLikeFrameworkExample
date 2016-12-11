@@ -1,4 +1,4 @@
-﻿namespace roguelike.entity.entitycolor {
+﻿namespace RoguePanda.entity.entitycolor {
     struct EntityColor {
         public byte R { get; private set; }
         public byte G { get; private set; }

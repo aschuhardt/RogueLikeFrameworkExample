@@ -1,4 +1,4 @@
-﻿namespace roguelike.modules {
+﻿namespace RoguePanda.modules {
     enum Colors {
         Border_ForeColor,
         DarkText_ForeColor,

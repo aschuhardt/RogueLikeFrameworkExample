@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace roguelike {
+namespace RoguePanda {
     class Program {
         static void Main(string[] args) {
             Game g = new Game();

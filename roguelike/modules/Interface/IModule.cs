@@ -1,12 +1,12 @@
-﻿using roguelike.entity;
+﻿using RoguePanda.entity;
 using System.Collections.Generic;
 
-namespace roguelike.modules {
+namespace RoguePanda.modules {
     interface IModule {
         bool closing { get; }
         string moduleState { get; }
         string nextStateType { get; }
-        IEnumerable<IEntity> entities { get; }
+        IEnumerable<IDrawObject> entities { get; }
         IList<object> transferParameters { get; }
         bool shouldReInitializeWindow { get; }
         VideoSettings videoSettings { get; set; }

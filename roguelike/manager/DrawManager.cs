@@ -1,11 +1,11 @@
-﻿using roguelike.entity;
-using roguelike.manager.exceptions;
+﻿using RoguePanda.entity;
+using RoguePanda.manager.exceptions;
 using System.Linq;
 using System.Collections.Generic;
 using SFML.Window;
 using SFML.Graphics;
 using System;
-namespace roguelike.manager {
+namespace RoguePanda.manager {
     /// <summary>
     /// Manages window initialization and runs drawing routines.
     /// </summary>
@@ -15,7 +15,7 @@ namespace roguelike.manager {
         private Font _font;
         private bool _entityBufferSet;
         private bool _windowInitialized;
-        private ICollection<IEntity> _entityBuffer;
+        private ICollection<IDrawObject> _entityBuffer;
 
         public VideoSettings defaultVideoSettings { get; set; }
 
@@ -34,7 +34,7 @@ namespace roguelike.manager {
         /// Initializes the entity buffer, as well as the entityBufferSet and windowInitialized flags.
         /// </summary>
         public DrawManager() {
-            _entityBuffer = new List<IEntity>();
+            _entityBuffer = new List<IDrawObject>();
             _entityBufferSet = false;
             _windowInitialized = false;
         }
@@ -58,8 +58,8 @@ namespace roguelike.manager {
         /// Populates the DrawManager's collection of IEntity objects that will be drawn on the window.
         /// </summary>
         /// <param name="entities"></param>
-        public void setEntityBuffer(IEnumerable<IEntity> entities) {
-            foreach (IEntity ent in entities) _entityBuffer.Add(ent);
+        public void setEntityBuffer(IEnumerable<IDrawObject> entities) {
+            foreach (IDrawObject ent in entities) _entityBuffer.Add(ent);
             _entityBufferSet = true;
         }
 
@@ -78,8 +78,8 @@ namespace roguelike.manager {
                 _window.Clear(Color.Black);
 
                 //do draw routines
-                IEnumerable<IEntity> sortedEntities = _entityBuffer.OrderBy((x) => x.layer);
-                foreach (IEntity ent in sortedEntities) {
+                IEnumerable<IDrawObject> sortedEntities = _entityBuffer.OrderBy((x) => x.layer);
+                foreach (IDrawObject ent in sortedEntities) {
                     //init colors
                     Color backColor = new Color(ent.backColor.R, ent.backColor.G, ent.backColor.B);
                     Color foreColor = new Color(ent.foreColor.R, ent.foreColor.G, ent.foreColor.B);

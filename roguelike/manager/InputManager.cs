@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using roguelike.manager.exceptions;
+using RoguePanda.manager.exceptions;
 using SFML.Window;
 using SFML.Graphics;
 
-namespace roguelike.manager {
+namespace RoguePanda.manager {
     /// <summary>
     /// Manages the detection and buffering of user-input.
     /// </summary>

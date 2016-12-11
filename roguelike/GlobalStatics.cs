@@ -1,4 +1,4 @@
-﻿namespace roguelike {
+﻿namespace RoguePanda {
     class GlobalStatics {
         private GlobalStatics() { }
         public const int DEFAULT_WINDOW_WIDTH = 800;

@@ -1,7 +1,7 @@
-﻿using roguelike.entity.entitycolor;
+﻿using RoguePanda.entity.entitycolor;
 
-namespace roguelike.entity {
-    interface IEntity {
+namespace RoguePanda.entity {
+    interface IDrawObject {
         string contents { get; }
         EntityColor foreColor { get; }
         EntityColor backColor { get; }

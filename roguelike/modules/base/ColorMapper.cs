@@ -1,6 +1,6 @@
-﻿using roguelike.entity.entitycolor;
+﻿using RoguePanda.entity.entitycolor;
 
-namespace roguelike.modules {
+namespace RoguePanda.modules {
     class ColorMapper {
         private const int DEFAULT = 255;
 

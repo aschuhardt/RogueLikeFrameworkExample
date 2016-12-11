@@ -1,7 +1,7 @@
 ﻿using System;
-using roguelike.manager;
+using RoguePanda.manager;
 
-namespace roguelike {
+namespace RoguePanda {
     /// <summary>
     /// The top-level engine of this game framework.
     /// Manages the behavior of and interactions between Logic, Input, and Drawing managers.

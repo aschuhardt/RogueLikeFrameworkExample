@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using roguelike.entity;
-using roguelike.entity.entitycolor;
+using RoguePanda.entity;
+using RoguePanda.entity.entitycolor;
 
-namespace roguelike.modules {
+namespace RoguePanda.modules {
     abstract class ModuleBase : IModule {
         private const float ENTITY_LAYER_STATIC = float.MinValue;
         private const float ENTITY_LAYER_NORMAL = 0.0f;
-        private IList<IEntity> _entities;
+        private IList<IDrawObject> _entities;
         private IList<object> _transferParams;
         private InputType _input;
         private bool _closing;
@@ -25,7 +25,7 @@ namespace roguelike.modules {
             }
         }
 
-        public IEnumerable<IEntity> entities {
+        public IEnumerable<IDrawObject> entities {
             get {
                 return _entities;
             }
@@ -90,7 +90,7 @@ namespace roguelike.modules {
 
         public ModuleBase() {
             _closing = false;
-            _entities = new List<IEntity>();
+            _entities = new List<IDrawObject>();
             _transferParams = new List<object>();
             _reinitWindow = false;
             _videoSettings = null;
@@ -126,7 +126,7 @@ namespace roguelike.modules {
 
         protected void addEntity(string content, EntityColor foreColor, EntityColor backColor, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
-            IEntity newEnt = new FlexibleEntity(content, foreColor, backColor, x, y, layer);
+            IDrawObject newEnt = new FlexibleEntity(content, foreColor, backColor, x, y, layer);
             _entities.Add(newEnt);
         }
 
@@ -134,7 +134,7 @@ namespace roguelike.modules {
             EntityColor mappedForeColor = ColorMapper.getColor(Colors.Border_ForeColor);
             EntityColor mappedBackColor = ColorMapper.getColor(Colors.Border_BackColor);
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
-            foreach (IEntity ent in EntityDrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, mappedForeColor, mappedBackColor, layer)) {
+            foreach (IDrawObject ent in DrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, mappedForeColor, mappedBackColor, layer)) {
                 _entities.Add(ent);
             }
         }
@@ -143,16 +143,16 @@ namespace roguelike.modules {
             EntityColor mappedForeColor = ColorMapper.getColor(foreColor);
             EntityColor mappedBackColor = ColorMapper.getColor(backColor);
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
-            foreach (IEntity ent in EntityDrawingMacros.drawRect(content, mappedForeColor, mappedBackColor, x1, y1, x2, y2, layer)) {
+            foreach (IDrawObject ent in DrawingMacros.drawRect(content, mappedForeColor, mappedBackColor, x1, y1, x2, y2, layer)) {
                 _entities.Add(ent);
             }
         }
 
         protected void clearEntities(bool preserveStatics = true) {
             if (preserveStatics) {
-                IList<IEntity> staticEntities = new List<IEntity>(_entities.Where((x) => x.layer == ENTITY_LAYER_STATIC));
+                IList<IDrawObject> staticEntities = new List<IDrawObject>(_entities.Where((x) => x.layer == ENTITY_LAYER_STATIC));
                 _entities.Clear();
-                foreach (IEntity ent in staticEntities) {
+                foreach (IDrawObject ent in staticEntities) {
                     _entities.Add(ent);
                 }
             } else {

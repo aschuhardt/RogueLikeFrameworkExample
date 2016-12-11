@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace roguelike.manager.exceptions {
+namespace RoguePanda.manager.exceptions {
     [Serializable]
     public class DrawManagerEntityBufferNotSetException : Exception {
         public DrawManagerEntityBufferNotSetException() { }
