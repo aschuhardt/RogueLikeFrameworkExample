@@ -47,7 +47,7 @@ namespace roguelike.entity {
             result.AddRange(drawRect(BORDER_CHARACTER, borderForeColor, borderBackColor, left, top + 1, left, bottom, layer));
 
             //right
-            result.AddRange(drawRect(BORDER_CHARACTER, borderForeColor, borderBackColor, right, top + 1, right, bottom));
+            result.AddRange(drawRect(BORDER_CHARACTER, borderForeColor, borderBackColor, right, top + 1, right, bottom, layer));
             
             return result.ToArray();
         }
