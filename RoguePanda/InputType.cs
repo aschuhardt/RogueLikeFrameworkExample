@@ -21,7 +21,7 @@ namespace RoguePanda {
     /// <summary>
     /// A simple helper for performing some routine tasks with the InputType enum.
     /// </summary>
-    class InputFlagHelper {
+    internal class InputFlagHelper {
         private InputFlagHelper() { }
 
         /// <summary>

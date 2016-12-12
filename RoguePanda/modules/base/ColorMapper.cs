@@ -1,7 +1,7 @@
 ﻿using RoguePanda.entity.entitycolor;
 
 namespace RoguePanda.modules {
-    class ColorMapper {
+    internal class ColorMapper {
         private const int DEFAULT = 255;
 
         //border

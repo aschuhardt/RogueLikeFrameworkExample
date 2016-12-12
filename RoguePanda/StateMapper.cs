@@ -10,8 +10,8 @@ namespace RoguePanda {
     /// </summary>
     class StateMapper {
         private StateMapper() { }
-        
-        public static IModule TransitToState(string moduleName) {
+
+        internal static IModule TransitToState(string moduleName) {
             try {
                 Type t = Assembly.GetEntryAssembly().GetType(moduleName);
                 return (IModule)Activator.CreateInstance(t);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace RoguePanda.modules {
-    interface IModule {
+    internal interface IModule {
         bool closing { get; }
         string moduleState { get; }
         string nextStateType { get; }

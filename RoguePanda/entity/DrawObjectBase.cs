@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RoguePanda.entity {
-    class DrawObjectBase : IDrawObject {
+    internal class DrawObjectBase : IDrawObject {
         protected string _content;
         protected DrawObjectColor _foreColor;
         protected DrawObjectColor _backColor;
