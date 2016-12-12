@@ -11,7 +11,7 @@ namespace RoguePanda.entity {
 
         private DrawingMacros() { }
 
-        public static IDrawObject[] drawRect(string glyph, EntityColor foreColor, EntityColor backColor, float x1, float y1, float x2, float y2, float layer = 0.0f) {
+        public static IDrawObject[] drawRect(string glyph, DrawObjectColor foreColor, DrawObjectColor backColor, float x1, float y1, float x2, float y2, float layer = 0.0f) {
             List<IDrawObject> result = new List<IDrawObject>();
 
             int tileWidth = ConfigManager.Instance.Configuration.FontWidth;
@@ -27,7 +27,7 @@ namespace RoguePanda.entity {
             return result.ToArray();
         }
 
-        public static IDrawObject[] drawWindowBorders(uint width, uint height, EntityColor borderForeColor, EntityColor borderBackColor, float layer = 0.0f) {
+        public static IDrawObject[] drawWindowBorders(uint width, uint height, DrawObjectColor borderForeColor, DrawObjectColor borderBackColor, float layer = 0.0f) {
             List<IDrawObject> result = new List<IDrawObject>();
             int fontHeight = ConfigManager.Instance.Configuration.FontHeight;
             int fontWidth = ConfigManager.Instance.Configuration.FontWidth;

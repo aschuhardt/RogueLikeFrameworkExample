@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace RoguePanda.entity {
     class DrawObjectBase : IDrawObject {
         protected string _content;
-        protected EntityColor _foreColor;
-        protected EntityColor _backColor;
+        protected DrawObjectColor _foreColor;
+        protected DrawObjectColor _backColor;
         protected float _x;
         protected float _y;
         protected float _layer;
@@ -20,13 +20,13 @@ namespace RoguePanda.entity {
             }
         }
 
-        EntityColor IDrawObject.foreColor {
+        DrawObjectColor IDrawObject.foreColor {
             get {
                 return _foreColor;
             }
         }
 
-        EntityColor IDrawObject.backColor {
+        DrawObjectColor IDrawObject.backColor {
             get {
                 return _backColor;
             }
