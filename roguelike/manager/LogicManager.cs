@@ -59,7 +59,7 @@ namespace RoguePanda.manager {
             //wait until the window has a chance to reinitialize before sending the entities for drawing
             if (!shouldReInitializeWindow) {
                 //cache entities created by module
-                foreach (IDrawObject ent in _currentModule.entities) _entities.Add(ent);
+                foreach (IDrawObject ent in _currentModule.drawObjects) _entities.Add(ent);
             } else {
                 videoSettings = _currentModule.videoSettings;
                 //reinitialize window with new settings

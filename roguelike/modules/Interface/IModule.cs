@@ -6,7 +6,7 @@ namespace RoguePanda.modules {
         bool closing { get; }
         string moduleState { get; }
         string nextStateType { get; }
-        IEnumerable<IDrawObject> entities { get; }
+        IEnumerable<IDrawObject> drawObjects { get; }
         IList<object> transferParameters { get; }
         bool shouldReInitializeWindow { get; }
         VideoSettings videoSettings { get; set; }

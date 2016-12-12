@@ -7,7 +7,7 @@ namespace RoguePanda.modules {
     public abstract class ModuleBase : IModule {
         private const float ENTITY_LAYER_STATIC = float.MinValue;
         private const float ENTITY_LAYER_NORMAL = 0.0f;
-        private IList<IDrawObject> _entities;
+        private IList<IDrawObject> _drawObjects;
         private IList<object> _transferParams;
         private InputType _input;
         private bool _closing;
@@ -25,9 +25,9 @@ namespace RoguePanda.modules {
             }
         }
 
-        public IEnumerable<IDrawObject> entities {
+        public IEnumerable<IDrawObject> drawObjects {
             get {
-                return _entities;
+                return _drawObjects;
             }
         }
 
@@ -90,7 +90,7 @@ namespace RoguePanda.modules {
 
         public ModuleBase() {
             _closing = false;
-            _entities = new List<IDrawObject>();
+            _drawObjects = new List<IDrawObject>();
             _transferParams = new List<object>();
             _reinitWindow = false;
             _videoSettings = null;
@@ -118,16 +118,16 @@ namespace RoguePanda.modules {
             return InputFlagHelper.isInputFlagSet(_input, inType);
         }
 
-        protected void addEntity(string content, Colors foreColor, Colors backColor, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
+        protected void addDrawObject(string content, Colors foreColor, Colors backColor, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
             DrawObjectColor mappedForeColor = ColorMapper.getColor(foreColor);
             DrawObjectColor mappedBackColor = ColorMapper.getColor(backColor);
-            addEntity(content, mappedForeColor, mappedBackColor, x, y, isStatic);
+            addDrawObject(content, mappedForeColor, mappedBackColor, x, y, isStatic);
         }
 
-        protected void addEntity(string content, DrawObjectColor foreColor, DrawObjectColor backColor, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
+        protected void addDrawObject(string content, DrawObjectColor foreColor, DrawObjectColor backColor, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
             IDrawObject newEnt = new FlexibleEntity(content, foreColor, backColor, x, y, layer);
-            _entities.Add(newEnt);
+            _drawObjects.Add(newEnt);
         }
 
         protected void drawBorders(bool isStatic = true) {
@@ -135,7 +135,7 @@ namespace RoguePanda.modules {
             DrawObjectColor mappedBackColor = ColorMapper.getColor(Colors.Border_BackColor);
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
             foreach (IDrawObject ent in DrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, mappedForeColor, mappedBackColor, layer)) {
-                _entities.Add(ent);
+                _drawObjects.Add(ent);
             }
         }
 
@@ -144,19 +144,19 @@ namespace RoguePanda.modules {
             DrawObjectColor mappedBackColor = ColorMapper.getColor(backColor);
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
             foreach (IDrawObject ent in DrawingMacros.drawRect(content, mappedForeColor, mappedBackColor, x1, y1, x2, y2, layer)) {
-                _entities.Add(ent);
+                _drawObjects.Add(ent);
             }
         }
 
-        protected void clearEntities(bool preserveStatics = true) {
+        protected void clearDrawObjects(bool preserveStatics = true) {
             if (preserveStatics) {
-                IList<IDrawObject> staticEntities = new List<IDrawObject>(_entities.Where((x) => x.layer == ENTITY_LAYER_STATIC));
-                _entities.Clear();
+                IList<IDrawObject> staticEntities = new List<IDrawObject>(_drawObjects.Where((x) => x.layer == ENTITY_LAYER_STATIC));
+                _drawObjects.Clear();
                 foreach (IDrawObject ent in staticEntities) {
-                    _entities.Add(ent);
+                    _drawObjects.Add(ent);
                 }
             } else {
-                _entities.Clear();
+                _drawObjects.Clear();
             }
         }
 
