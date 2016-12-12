@@ -1,2 +1,2 @@
-# Turion
-An example implementation of a text-based game framework leveraging SFML.NET.
+# RoguePanda
+A text-based roguelike game framework leveraging SFML.NET.
