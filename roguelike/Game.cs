@@ -26,9 +26,9 @@ namespace RoguePanda {
             _inputMan = new InputManager();
 
             _defaultVideoSettings = new VideoSettings() {
-                width = GlobalStatics.DEFAULT_WINDOW_WIDTH,
-                height = GlobalStatics.DEFAULT_WINDOW_HEIGHT,
-                aalevel = GlobalStatics.DEFAULT_ANTIALIASING_LEVEL,
+                width = Convert.ToUInt32(ConfigManager.Instance.Configuration.DefaultWindowWidth),
+                height = Convert.ToUInt32(ConfigManager.Instance.Configuration.DefaultWindowHeight),
+                aalevel = Convert.ToUInt32(ConfigManager.Instance.Configuration.AntialiasingLevel),
                 fullscreen = false
             };
 

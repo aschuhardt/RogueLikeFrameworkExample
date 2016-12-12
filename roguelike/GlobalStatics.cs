@@ -13,18 +13,18 @@
         public const int BIT_DEPTH = 24;
         public const int STENCIL_DEPTH = 0;
         public const string LINE_DELIMITER = "%endline%";
-        public const string TITLE_ART =
-              " @@@@@@@@@ @@   :@@  @@@@@@@     @@@@@    @@@@@@   @@   :@@ " + LINE_DELIMITER
-            + " @@.@@:.@@ @@   :@@   @@  :@@     @@:    @@   :@@  @@'  :@@ " + LINE_DELIMITER
-            + " @: @@:`:@ @@   :@@   @@  :@@     @@:    @@   :@@  @@@.`:@@ " + LINE_DELIMITER
-            + " '  @@:  ' @@   :@@   @@  :@@     @@:    @@   :@@  @@@@.:@@ " + LINE_DELIMITER
-            + "    @@:    @@   :@@   @@  :@@     @@:    @@   :@@  @@@@@@@@ " + LINE_DELIMITER
-            + "    @@:    @@   :@@   @@@@@@      @@:    @@   :@@  @@ @@@@@ " + LINE_DELIMITER
-            + "    @@:    @@   :@@   @@ '@@      @@:    @@   :@@  @@  '@@@ " + LINE_DELIMITER
-            + "    @@:    @@   :@@   @@  :@@     @@:    @@   :@@  @@   :@@ " + LINE_DELIMITER
-            + "    @@:    @@   :@@   @@  :@@     @@:    @@   :@@  @@   :@@ " + LINE_DELIMITER
-            + "    @@:    @@   :@@   @@  :@@     @@:    @@   :@@  @@   :@@ " + LINE_DELIMITER
-            + "   @@@@@    @@@@@@   @@@  :@@    @@@@@    @@@@@@   @@   :@@ " + LINE_DELIMITER;
+        //public const string TITLE_ART =
+        //      " @@@@@@@@@ @@   :@@  @@@@@@@     @@@@@    @@@@@@   @@   :@@ " + LINE_DELIMITER
+        //    + " @@.@@:.@@ @@   :@@   @@  :@@     @@:    @@   :@@  @@'  :@@ " + LINE_DELIMITER
+        //    + " @: @@:`:@ @@   :@@   @@  :@@     @@:    @@   :@@  @@@.`:@@ " + LINE_DELIMITER
+        //    + " '  @@:  ' @@   :@@   @@  :@@     @@:    @@   :@@  @@@@.:@@ " + LINE_DELIMITER
+        //    + "    @@:    @@   :@@   @@  :@@     @@:    @@   :@@  @@@@@@@@ " + LINE_DELIMITER
+        //    + "    @@:    @@   :@@   @@@@@@      @@:    @@   :@@  @@ @@@@@ " + LINE_DELIMITER
+        //    + "    @@:    @@   :@@   @@ '@@      @@:    @@   :@@  @@  '@@@ " + LINE_DELIMITER
+        //    + "    @@:    @@   :@@   @@  :@@     @@:    @@   :@@  @@   :@@ " + LINE_DELIMITER
+        //    + "    @@:    @@   :@@   @@  :@@     @@:    @@   :@@  @@   :@@ " + LINE_DELIMITER
+        //    + "    @@:    @@   :@@   @@  :@@     @@:    @@   :@@  @@   :@@ " + LINE_DELIMITER
+        //    + "   @@@@@    @@@@@@   @@@  :@@    @@@@@    @@@@@@   @@   :@@ " + LINE_DELIMITER;
 
 
 

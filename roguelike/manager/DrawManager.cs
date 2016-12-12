@@ -85,15 +85,15 @@ namespace RoguePanda.manager {
                     Color foreColor = new Color(ent.foreColor.R, ent.foreColor.G, ent.foreColor.B);
 
                     //init text object
-                    Text txt = new Text(ent.contents, _font, GlobalStatics.FONT_HEIGHT);
+                    Text txt = new Text(ent.contents, _font, Convert.ToUInt32(ConfigManager.Instance.Configuration.FontHeight));
                     txt.Position = new Vector2f(ent.x, ent.y);
                     txt.Color = foreColor;
 
                     //init background rectangle
                     FloatRect backRect = txt.GetLocalBounds();
-                    RectangleShape backRectFill = new RectangleShape(new Vector2f(backRect.Width, backRect.Height + GlobalStatics.FONT_BACKGROUND_HEIGHT_ADJUSTMENT));
+                    RectangleShape backRectFill = new RectangleShape(new Vector2f(backRect.Width, backRect.Height + ConfigManager.Instance.Configuration.FontBackgroundHeightMod));
                     backRectFill.FillColor = backColor;
-                    backRectFill.Position = new Vector2f(txt.Position.X, txt.Position.Y + GlobalStatics.FONT_BACKGROUND_VERT_POS_ADJUSTMENT);
+                    backRectFill.Position = new Vector2f(txt.Position.X, txt.Position.Y + ConfigManager.Instance.Configuration.FontBackgroundVerticalPositionMod);
 
                     //draw background rectangle
                     _window.Draw(backRectFill);
@@ -132,9 +132,9 @@ namespace RoguePanda.manager {
 
             _window = new RenderWindow(
                 new VideoMode(settings.width, settings.height),
-                GlobalStatics.WINDOW_TITLE,
+                ConfigManager.Instance.Configuration.WindowTitle,
                 windowStyle,
-                new ContextSettings(GlobalStatics.BIT_DEPTH, GlobalStatics.STENCIL_DEPTH, settings.aalevel));
+                new ContextSettings(Convert.ToUInt32(ConfigManager.Instance.Configuration.BitDepth), Convert.ToUInt32(ConfigManager.Instance.Configuration.StencilDepth), settings.aalevel));
             _window.SetVerticalSyncEnabled(true);
             _windowInitialized = true;
             _window.SetActive(true);
@@ -144,7 +144,7 @@ namespace RoguePanda.manager {
         /// Loads the font.
         /// </summary>
         private void initFont() {
-            _font = new Font(GlobalStatics.FONT_PATH);
+            _font = new Font(ConfigManager.Instance.Configuration.FontPath);
         }
     }
 }

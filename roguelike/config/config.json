@@ -1,0 +1,17 @@
+﻿{
+  "Configuration": {
+    "AntialiasingLevel": 4,
+    "BitDepth": 24,
+    "DefaultModule": "modules.MainMenu",
+    "DefaultWindowHeight": 600,
+    "DefaultWindowWidth": 800,
+    "FontBackgroundHeightMod": 6,
+    "FontBackgroundVerticalPositionMod": 4,
+    "FontHeight": 16,
+    "FontPath": "typeface/MorePerfectDOSVGA.ttf",
+    "FontWidth": 9,
+    "LineDelimiter": "%endline%",
+    "StencilDepth": 0,
+    "WindowTitle": "RoguePanda"
+  }
+}
