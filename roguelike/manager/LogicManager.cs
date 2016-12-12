@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace RoguePanda.manager {
     class LogicManager : ManagerBase {
-        private const string DEFAULT_STATE = "roguelike.modules.MainMenu";
+        private string DEFAULT_STATE = ConfigManager.Instance.Configuration.DefaultModule;
 
         private IList<IDrawObject> _entities;
         private IModule _currentModule;

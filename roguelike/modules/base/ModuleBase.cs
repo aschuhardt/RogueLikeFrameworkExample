@@ -4,7 +4,7 @@ using RoguePanda.entity;
 using RoguePanda.entity.entitycolor;
 
 namespace RoguePanda.modules {
-    abstract class ModuleBase : IModule {
+    public abstract class ModuleBase : IModule {
         private const float ENTITY_LAYER_STATIC = float.MinValue;
         private const float ENTITY_LAYER_NORMAL = 0.0f;
         private IList<IDrawObject> _entities;
@@ -119,20 +119,20 @@ namespace RoguePanda.modules {
         }
 
         protected void addEntity(string content, Colors foreColor, Colors backColor, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
-            EntityColor mappedForeColor = ColorMapper.getColor(foreColor);
-            EntityColor mappedBackColor = ColorMapper.getColor(backColor);
+            DrawObjectColor mappedForeColor = ColorMapper.getColor(foreColor);
+            DrawObjectColor mappedBackColor = ColorMapper.getColor(backColor);
             addEntity(content, mappedForeColor, mappedBackColor, x, y, isStatic);
         }
 
-        protected void addEntity(string content, EntityColor foreColor, EntityColor backColor, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
+        protected void addEntity(string content, DrawObjectColor foreColor, DrawObjectColor backColor, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
             IDrawObject newEnt = new FlexibleEntity(content, foreColor, backColor, x, y, layer);
             _entities.Add(newEnt);
         }
 
         protected void drawBorders(bool isStatic = true) {
-            EntityColor mappedForeColor = ColorMapper.getColor(Colors.Border_ForeColor);
-            EntityColor mappedBackColor = ColorMapper.getColor(Colors.Border_BackColor);
+            DrawObjectColor mappedForeColor = ColorMapper.getColor(Colors.Border_ForeColor);
+            DrawObjectColor mappedBackColor = ColorMapper.getColor(Colors.Border_BackColor);
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
             foreach (IDrawObject ent in DrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, mappedForeColor, mappedBackColor, layer)) {
                 _entities.Add(ent);
@@ -140,8 +140,8 @@ namespace RoguePanda.modules {
         }
 
         protected void drawRect(string content, Colors foreColor, Colors backColor, float x1, float y1, float x2, float y2, bool isStatic = false) {
-            EntityColor mappedForeColor = ColorMapper.getColor(foreColor);
-            EntityColor mappedBackColor = ColorMapper.getColor(backColor);
+            DrawObjectColor mappedForeColor = ColorMapper.getColor(foreColor);
+            DrawObjectColor mappedBackColor = ColorMapper.getColor(backColor);
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
             foreach (IDrawObject ent in DrawingMacros.drawRect(content, mappedForeColor, mappedBackColor, x1, y1, x2, y2, layer)) {
                 _entities.Add(ent);

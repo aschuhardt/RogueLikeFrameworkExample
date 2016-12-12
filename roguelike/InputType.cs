@@ -6,7 +6,7 @@ namespace RoguePanda {
     /// Provides a means by which to keep modules separate from the SFML binaries.
     /// </summary>
     [Flags]
-    enum InputType {
+    public enum InputType {
         None = 0,
         Quit = 1,
         Up = 2,

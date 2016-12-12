@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 
 namespace RoguePanda.manager {
     public sealed class ConfigManager {
+        private const string CONFIG_FILE_PATH = "config/config.json";
         private static readonly Lazy<ConfigManager> config =
             new Lazy<ConfigManager>(() => new ConfigManager());
 
@@ -19,8 +20,8 @@ namespace RoguePanda.manager {
         public Config Configuration { get; set; }
 
         private ConfigManager() {
-            string configFilePath = "config/config.json";
-            this.Configuration = JsonConvert.DeserializeObject<Config>(configFilePath);
+            string configJson = System.IO.File.ReadAllText(CONFIG_FILE_PATH);
+            this.Configuration = JsonConvert.DeserializeObject<Config>(configJson);
         }
     }
 }

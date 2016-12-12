@@ -1,5 +1,5 @@
 ﻿namespace RoguePanda.modules {
-    enum Colors {
+    public enum Colors {
         Border_ForeColor,
         DarkText_ForeColor,
         LightText_ForeColor,

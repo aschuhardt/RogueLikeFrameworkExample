@@ -1,5 +1,8 @@
-﻿using RoguePanda.modules;
+﻿using RoguePanda;
+using RoguePanda.manager;
+using RoguePanda.modules;
 using System;
+using System.Reflection;
 
 namespace RoguePanda {
     /// <summary>
@@ -10,11 +13,10 @@ namespace RoguePanda {
         
         public static IModule TransitToState(string moduleName) {
             try {
-                Type t = Type.GetType(moduleName);
+                Type t = Assembly.GetEntryAssembly().GetType(moduleName);
                 return (IModule)Activator.CreateInstance(t);
-            } catch (Exception) {
-                Console.WriteLine("Tried to create an instance of a module that was not found.  Try correcting the fully-qualified name of the class to be called.");
-                throw;
+            } catch (Exception ex) {
+                throw ex;
             }
         }
     }
