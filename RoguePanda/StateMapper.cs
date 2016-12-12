@@ -15,8 +15,8 @@ namespace RoguePanda {
             try {
                 Type t = Assembly.GetEntryAssembly().GetType(moduleName);
                 return (IModule)Activator.CreateInstance(t);
-            } catch (Exception ex) {
-                throw ex;
+            } catch (Exception) {
+                throw;
             }
         }
     }
