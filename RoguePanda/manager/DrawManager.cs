@@ -9,7 +9,7 @@ namespace RoguePanda.manager {
     /// <summary>
     /// Manages window initialization and runs drawing routines.
     /// </summary>
-    class DrawManager : ManagerBase {
+    class DrawManager : ManagerBase, IDisposable {
 
         private RenderWindow _window;
         private Font _font;
@@ -145,6 +145,11 @@ namespace RoguePanda.manager {
         /// </summary>
         private void initFont() {
             _font = new Font(ConfigManager.Instance.Configuration.FontPath);
+        }
+
+        public void Dispose() {
+            _window.Dispose();
+            _font.Dispose();
         }
     }
 }
