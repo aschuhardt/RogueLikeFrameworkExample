@@ -6,7 +6,7 @@ namespace RoguePanda {
     /// The top-level engine of this game framework.
     /// Manages the behavior of and interactions between Logic, Input, and Drawing managers.
     /// </summary>
-    public class Game : IDisposable {
+    public sealed class Game : IDisposable {
         public string errorMessage { get; }
         private bool _shouldQuit = false;
         private bool _initSuccess = false;

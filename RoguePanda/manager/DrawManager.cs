@@ -9,7 +9,7 @@ namespace RoguePanda.manager {
     /// <summary>
     /// Manages window initialization and runs drawing routines.
     /// </summary>
-    class DrawManager : ManagerBase, IDisposable {
+    sealed class DrawManager : ManagerBase, IDisposable {
 
         private RenderWindow _window;
         private Font _font;
