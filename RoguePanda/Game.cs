@@ -16,7 +16,6 @@ namespace RoguePanda {
         private DrawManager _drawMan;
         private LogicManager _logicMan;
         private InputManager _inputMan;
-        private VideoSettings _defaultVideoSettings;
 
         /// <summary>
         /// The Game object's constructor.
@@ -31,12 +30,7 @@ namespace RoguePanda {
             _logicMan = new LogicManager();
             _inputMan = new InputManager();
 
-            _defaultVideoSettings = new VideoSettings() {
-                width = Convert.ToUInt32(ConfigManager.Instance.Configuration.DefaultWindowWidth),
-                height = Convert.ToUInt32(ConfigManager.Instance.Configuration.DefaultWindowHeight),
-                aalevel = Convert.ToUInt32(ConfigManager.Instance.Configuration.AntialiasingLevel),
-                fullscreen = false
-            };
+            
 
             if (init()) {
                 _initSuccess = true;
@@ -100,8 +94,7 @@ namespace RoguePanda {
         /// <returns></returns>
         private bool init() {
             bool result = true;
-
-            _drawMan.defaultVideoSettings = _defaultVideoSettings;
+            
             result &= _drawMan.init();
 
             //set inputMan's window handle

@@ -16,9 +16,7 @@ namespace RoguePanda.manager {
         private bool _entityBufferSet;
         private bool _windowInitialized;
         private ICollection<IDrawObject> _entityBuffer;
-
-        public VideoSettings defaultVideoSettings { get; set; }
-
+        
         public RenderWindow window {
             get {
                 if (!_windowInitialized) {
@@ -45,7 +43,14 @@ namespace RoguePanda.manager {
         /// <returns>True if successful, false if not.</returns>
         public bool init() {
             try {
-                initWindow();
+                VideoSettings defaultVideoSettings = new VideoSettings() {
+                    width = Convert.ToUInt32(ConfigManager.Instance.Configuration.DefaultWindowWidth),
+                    height = Convert.ToUInt32(ConfigManager.Instance.Configuration.DefaultWindowHeight),
+                    aalevel = Convert.ToUInt32(ConfigManager.Instance.Configuration.AntialiasingLevel),
+                    fullscreen = false
+                };
+
+                initWindow(defaultVideoSettings);
                 initFont();
                 return true;
             } catch (System.Exception ex) {
@@ -111,11 +116,7 @@ namespace RoguePanda.manager {
                 _entityBufferSet = false;
             }
         }
-
-        public void initWindow() {
-            initWindow(defaultVideoSettings);
-        }
-
+        
         /// <summary>
         /// Initializes the window with a given set of video settings.
         /// </summary>
