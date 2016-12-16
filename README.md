@@ -10,8 +10,7 @@ Please feel free to fork this repository or use it however you like.
 
 # Setup
 1. Build solution
-2. Copy all of the .dll files and the "Config" and "Typeset" folders to root directory of new project.
-3. Set all of the files you just copied over to "Copy to Output Directory" -> "Copy if Newer".
+2. Copy the "Config" and "Typeset" folders to root directory of new project, and set their contents to copy to the output directory.
 4. Add a project reference to the library RoguePanda.dll
 5. Set the "DefaultModule" value in config.json to match the fully-qualified name of the class you'd like to load on startup.
  - i.e. "MyApplication.modules.MainModule"
@@ -53,9 +52,6 @@ namespace MyApplication.modules {
 }
  ```
  
- The example setup's project should look something like this:
- 
- ![](http://i.imgur.com/vMyEEMr.png) 
  
 # Notes
   - There is a test application included with the solution that demonstrates a simple implementation utilizing this library, and a sample of some of its functionality.
