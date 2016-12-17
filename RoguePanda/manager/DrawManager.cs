@@ -10,7 +10,7 @@ namespace RoguePanda.manager {
     /// Manages window initialization and runs drawing routines.
     /// </summary>
     internal sealed class DrawManager : ManagerBase, IDisposable {
-
+        public VideoSettings videoSettings { get; private set; }
         private RenderWindow _window;
         private Font _font;
         private bool _entityBufferSet;
@@ -139,6 +139,7 @@ namespace RoguePanda.manager {
             _window.SetVerticalSyncEnabled(true);
             _windowInitialized = true;
             _window.SetActive(true);
+            videoSettings = settings;
         }
 
         /// <summary>

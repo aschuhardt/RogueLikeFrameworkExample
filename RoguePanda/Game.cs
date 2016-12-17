@@ -100,7 +100,7 @@ namespace RoguePanda {
             //set inputMan's window handle
             _inputMan.window = _drawMan.window;
 
-            _logicMan.videoSettings = _drawMan.defaultVideoSettings;
+            _logicMan.videoSettings = _drawMan.videoSettings;
             result &= _logicMan.init();
 
             result &= _inputMan.init();
