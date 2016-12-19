@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using RoguePanda.entity;
-using RoguePanda.entity.entitycolor;
+using RoguePanda.drawobject;
+using RoguePanda.drawobject.color;
 using RoguePanda.manager;
 using SFML.Graphics;
 
-namespace RoguePanda.entity {
+namespace RoguePanda.drawobject {
     class DrawingMacros {
         private const string BORDER_CHARACTER = "#";
 

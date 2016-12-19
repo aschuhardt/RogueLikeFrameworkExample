@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using RoguePanda.drawobject.color;
 using RoguePanda.modules;
 using RoguePanda.manager;
 
@@ -15,14 +16,14 @@ namespace testmodule {
         }
 
         protected override bool initModule(IList<object> parameters) {
-            
+
             return true;
         }
 
         protected override void runModule() {
             clearDrawObjects();
 
-            addDrawObject(text, Colors.Title_ForeColor, Colors.Title_BackColor, x, y);
+            addDrawObject(text, DrawObjectColor.createRGB(255, 240, 255), DrawObjectColor.createRGB(0, 0, 0), x, y);
 
             x += dx;
             y += dy;

@@ -78,8 +78,6 @@
     <Compile Include="manager\InputManager.cs" />
     <Compile Include="manager\LogicManager.cs" />
     <Compile Include="manager\ManagerBase.cs" />
-    <Compile Include="modules\base\ColorMapper.cs" />
-    <Compile Include="modules\base\Colors.cs" />
     <Compile Include="modules\base\ModuleBase.cs" />
     <Compile Include="modules\interface\IModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

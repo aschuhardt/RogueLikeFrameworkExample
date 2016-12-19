@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using RoguePanda.entity;
-using RoguePanda.entity.entitycolor;
+using RoguePanda.drawobject;
+using RoguePanda.drawobject.color;
 
 namespace RoguePanda.modules {
     public abstract class ModuleBase : IModule {
@@ -117,33 +117,23 @@ namespace RoguePanda.modules {
         protected bool testInput(InputType inType) {
             return InputFlagHelper.isInputFlagSet(_input, inType);
         }
-
-        protected void addDrawObject(string content, Colors foreColor, Colors backColor, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
-            DrawObjectColor mappedForeColor = ColorMapper.getColor(foreColor);
-            DrawObjectColor mappedBackColor = ColorMapper.getColor(backColor);
-            addDrawObject(content, mappedForeColor, mappedBackColor, x, y, isStatic);
-        }
-
+        
         protected void addDrawObject(string content, DrawObjectColor foreColor, DrawObjectColor backColor, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
             IDrawObject newEnt = new FlexibleEntity(content, foreColor, backColor, x, y, layer);
             _drawObjects.Add(newEnt);
         }
 
-        protected void drawBorders(bool isStatic = true) {
-            DrawObjectColor mappedForeColor = ColorMapper.getColor(Colors.Border_ForeColor);
-            DrawObjectColor mappedBackColor = ColorMapper.getColor(Colors.Border_BackColor);
+        protected void drawBorders(DrawObjectColor foreColor, DrawObjectColor backColor, bool isStatic = true) {
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
-            foreach (IDrawObject ent in DrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, mappedForeColor, mappedBackColor, layer)) {
+            foreach (IDrawObject ent in DrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, foreColor, backColor, layer)) {
                 _drawObjects.Add(ent);
             }
         }
 
-        protected void drawRect(string content, Colors foreColor, Colors backColor, float x1, float y1, float x2, float y2, bool isStatic = false) {
-            DrawObjectColor mappedForeColor = ColorMapper.getColor(foreColor);
-            DrawObjectColor mappedBackColor = ColorMapper.getColor(backColor);
+        protected void drawRect(string content, DrawObjectColor foreColor, DrawObjectColor backColor, float x1, float y1, float x2, float y2, bool isStatic = false) {
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
-            foreach (IDrawObject ent in DrawingMacros.drawRect(content, mappedForeColor, mappedBackColor, x1, y1, x2, y2, layer)) {
+            foreach (IDrawObject ent in DrawingMacros.drawRect(content, foreColor, backColor, x1, y1, x2, y2, layer)) {
                 _drawObjects.Add(ent);
             }
         }

@@ -1,6 +1,6 @@
-﻿using RoguePanda.entity.entitycolor;
+﻿using RoguePanda.drawobject.color;
 
-namespace RoguePanda.entity {
+namespace RoguePanda.drawobject {
     public interface IDrawObject {
         string contents { get; }
         DrawObjectColor foreColor { get; }

@@ -1,4 +1,4 @@
-﻿using RoguePanda.entity;
+﻿using RoguePanda.drawobject;
 using System.Collections.Generic;
 
 namespace RoguePanda.modules {
