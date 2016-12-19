@@ -28,12 +28,12 @@ namespace testmodule {
             x += dx;
             y += dy;
 
-            if (x >= _windowWidth - (text.Length * ConfigManager.Instance.Configuration.FontWidth)
+            if (x >= _windowWidth - (text.Length * ConfigManager.Config.FontWidth)
                 || x <= 0) {
                 dx = -dx;
             }
 
-            if (y >= _windowHeight - (ConfigManager.Instance.Configuration.FontHeight)
+            if (y >= _windowHeight - (ConfigManager.Config.FontHeight)
                 || y <= 0) {
                 dy = -dy;
             }

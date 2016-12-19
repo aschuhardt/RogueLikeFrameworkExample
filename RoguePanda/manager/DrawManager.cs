@@ -44,9 +44,9 @@ namespace RoguePanda.manager {
         public bool init() {
             try {
                 VideoSettings defaultVideoSettings = new VideoSettings() {
-                    width = Convert.ToUInt32(ConfigManager.Instance.Configuration.DefaultWindowWidth),
-                    height = Convert.ToUInt32(ConfigManager.Instance.Configuration.DefaultWindowHeight),
-                    aalevel = Convert.ToUInt32(ConfigManager.Instance.Configuration.AntialiasingLevel),
+                    width = Convert.ToUInt32(ConfigManager.Config.DefaultWindowWidth),
+                    height = Convert.ToUInt32(ConfigManager.Config.DefaultWindowHeight),
+                    aalevel = Convert.ToUInt32(ConfigManager.Config.AntialiasingLevel),
                     fullscreen = false
                 };
 
@@ -90,15 +90,15 @@ namespace RoguePanda.manager {
                     Color foreColor = new Color(ent.foreColor.R, ent.foreColor.G, ent.foreColor.B);
 
                     //init text object
-                    Text txt = new Text(ent.contents, _font, Convert.ToUInt32(ConfigManager.Instance.Configuration.FontHeight));
+                    Text txt = new Text(ent.contents, _font, Convert.ToUInt32(ConfigManager.Config.FontHeight));
                     txt.Position = new Vector2f(ent.x, ent.y);
                     txt.Color = foreColor;
 
                     //init background rectangle
                     FloatRect backRect = txt.GetLocalBounds();
-                    RectangleShape backRectFill = new RectangleShape(new Vector2f(backRect.Width, backRect.Height + ConfigManager.Instance.Configuration.FontBackgroundHeightMod));
+                    RectangleShape backRectFill = new RectangleShape(new Vector2f(backRect.Width, backRect.Height + ConfigManager.Config.FontBackgroundHeightMod));
                     backRectFill.FillColor = backColor;
-                    backRectFill.Position = new Vector2f(txt.Position.X, txt.Position.Y + ConfigManager.Instance.Configuration.FontBackgroundVerticalPositionMod);
+                    backRectFill.Position = new Vector2f(txt.Position.X, txt.Position.Y + ConfigManager.Config.FontBackgroundVerticalPositionMod);
 
                     //draw background rectangle
                     _window.Draw(backRectFill);
@@ -133,9 +133,9 @@ namespace RoguePanda.manager {
 
             _window = new RenderWindow(
                 new VideoMode(settings.width, settings.height),
-                ConfigManager.Instance.Configuration.WindowTitle,
+                ConfigManager.Config.WindowTitle,
                 windowStyle,
-                new ContextSettings(Convert.ToUInt32(ConfigManager.Instance.Configuration.BitDepth), Convert.ToUInt32(ConfigManager.Instance.Configuration.StencilDepth), settings.aalevel));
+                new ContextSettings(Convert.ToUInt32(ConfigManager.Config.BitDepth), Convert.ToUInt32(ConfigManager.Config.StencilDepth), settings.aalevel));
             _window.SetVerticalSyncEnabled(true);
             _windowInitialized = true;
             _window.SetActive(true);
@@ -146,7 +146,7 @@ namespace RoguePanda.manager {
         /// Loads the font.
         /// </summary>
         private void initFont() {
-            _font = new Font(ConfigManager.Instance.Configuration.FontPath);
+            _font = new Font(ConfigManager.Config.FontPath);
         }
 
         public void Dispose() {

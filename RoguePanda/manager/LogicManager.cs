@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace RoguePanda.manager {
     internal sealed class LogicManager : ManagerBase {
-        private string DEFAULT_STATE = ConfigManager.Instance.Configuration.DefaultModule;
+        private string DEFAULT_STATE = ConfigManager.Config.DefaultModule;
 
         private IList<IDrawObject> _entities;
         private IModule _currentModule;
