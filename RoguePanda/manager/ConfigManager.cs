@@ -22,7 +22,7 @@ namespace RoguePanda.manager {
 
         public static Config Config {
             get {
-                return ConfigManager.Config;
+                return Instance.Configuration;
             }
         }
 

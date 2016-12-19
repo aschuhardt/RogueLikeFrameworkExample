@@ -1,5 +1,5 @@
 ﻿{
-  "AntialiasingLevel": 4,
+  "AntialiasingLevel": 1,
   "BitDepth": 24,
   "DefaultModule": "testmodule.MainMenu",
   "DefaultWindowHeight": 600,
