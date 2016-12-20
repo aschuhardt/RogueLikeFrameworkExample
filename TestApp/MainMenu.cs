@@ -65,7 +65,6 @@ namespace testmodule {
 
             float fps = frameRate();
             if (fps != -1.0f) {
-                clearDrawObjects(false);
                 addDrawObject(string.Format("FPS: {0}", fps.ToString("0.###")), DrawObjectColor.createRGB(255, 240, 255), DrawObjectColor.createRGB(0, 0, 0), 0, 0, true);
             }
         }
