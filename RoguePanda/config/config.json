@@ -11,5 +11,6 @@
   "FontWidth": 9,
   "LineDelimiter": "%endline%",
   "StencilDepth": 0,
-  "WindowTitle": "RoguePanda"
+  "WindowTitle": "RoguePanda",
+  "SmoothSprites": false
 }

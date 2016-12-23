@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using RoguePanda.drawobject.color;
+using RoguePanda.entity.color;
 using RoguePanda.modules;
 using RoguePanda.manager;
 using System;
@@ -51,7 +51,7 @@ namespace testmodule {
             clearDrawObjects();
             
             foreach (label l in labels) {
-                addDrawObject(l.id.ToString(), DrawObjectColor.createRGB(255, 240, 255), DrawObjectColor.createRGB(0, 0, 0), l.x, l.y);
+                addTextObject(l.id.ToString(), EntityColor.createRGB(255, 240, 255), EntityColor.createRGB(0, 0, 0), l.x, l.y);
             }
 
             if (testInput(RoguePanda.InputType.Enter)) {
@@ -65,7 +65,7 @@ namespace testmodule {
 
             float fps = frameRate();
             if (fps != -1.0f) {
-                addDrawObject(string.Format("FPS: {0}", fps.ToString("0.###")), DrawObjectColor.createRGB(255, 240, 255), DrawObjectColor.createRGB(0, 0, 0), 0, 0, true);
+                addTextObject(string.Format("FPS: {0}", fps.ToString("0.###")), EntityColor.createRGB(255, 240, 255), EntityColor.createRGB(0, 0, 0), 0, 0, true);
             }
         }
     }

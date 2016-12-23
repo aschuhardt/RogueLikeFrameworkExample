@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RoguePanda.drawobject.color {
+namespace RoguePanda.entity.color {
     [Serializable]
     public class InvalidEntityColorValueException : Exception {
         public InvalidEntityColorValueException() { }

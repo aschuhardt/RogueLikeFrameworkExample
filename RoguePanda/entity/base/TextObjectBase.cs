@@ -1,38 +1,38 @@
-﻿using RoguePanda.drawobject.color;
+﻿using RoguePanda.entity.color;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RoguePanda.drawobject {
-    internal class DrawObjectBase : IDrawObject {
+namespace RoguePanda.entity {
+    internal class TextObjectBase : ITextObject {
         protected string _content;
-        protected DrawObjectColor _foreColor;
-        protected DrawObjectColor _backColor;
+        protected EntityColor _foreColor;
+        protected EntityColor _backColor;
         protected float _x;
         protected float _y;
         protected float _layer;
 
-        string IDrawObject.contents {
+        string ITextObject.contents {
             get {
                 return _content;
             }
         }
 
-        DrawObjectColor IDrawObject.foreColor {
+        EntityColor ITextObject.foreColor {
             get {
                 return _foreColor;
             }
         }
 
-        DrawObjectColor IDrawObject.backColor {
+        EntityColor ITextObject.backColor {
             get {
                 return _backColor;
             }
         }
 
-        float IDrawObject.x {
+        float ITextObject.x {
             get {
                 return _x;
             }
@@ -42,7 +42,7 @@ namespace RoguePanda.drawobject {
             }
         }
 
-        float IDrawObject.y {
+        float ITextObject.y {
             get {
                 return _y;
             }
@@ -52,7 +52,7 @@ namespace RoguePanda.drawobject {
             }
         }
 
-        float IDrawObject.layer {
+        float ITextObject.layer {
             get {
                 return _layer;
             }
@@ -62,6 +62,6 @@ namespace RoguePanda.drawobject {
             }
         }
 
-        protected DrawObjectBase() { }
+        protected TextObjectBase() { }
     }
 }

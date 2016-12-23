@@ -1,10 +1,11 @@
-﻿using RoguePanda.drawobject;
+﻿using RoguePanda.entity;
 using RoguePanda.manager.exceptions;
 using System.Linq;
 using System.Collections.Generic;
 using SFML.Window;
 using SFML.Graphics;
 using System;
+
 namespace RoguePanda.manager {
     /// <summary>
     /// Manages window initialization and runs drawing routines.
@@ -13,10 +14,12 @@ namespace RoguePanda.manager {
         public VideoSettings videoSettings { get; private set; }
         private RenderWindow _window;
         private Font _font;
-        private bool _entityBufferSet;
+        private bool _textEntityBufferSet;
+        private bool _spriteEntityBufferSet;
         private bool _windowInitialized;
-        private ICollection<IDrawObject> _entityBuffer;
-        
+        private ICollection<ITextObject> _textEntityBuffer;
+        private ICollection<ISpriteObject> _spriteEntityBuffer;
+
         public RenderWindow window {
             get {
                 if (!_windowInitialized) {
@@ -32,8 +35,10 @@ namespace RoguePanda.manager {
         /// Initializes the entity buffer, as well as the entityBufferSet and windowInitialized flags.
         /// </summary>
         public DrawManager() {
-            _entityBuffer = new List<IDrawObject>();
-            _entityBufferSet = false;
+            _textEntityBuffer = new List<ITextObject>();
+            _spriteEntityBuffer = new List<ISpriteObject>();
+            _textEntityBufferSet = false;
+            _spriteEntityBufferSet = false;
             _windowInitialized = false;
         }
 
@@ -52,6 +57,7 @@ namespace RoguePanda.manager {
 
                 initWindow(defaultVideoSettings);
                 initFont();
+
                 return true;
             } catch (System.Exception ex) {
                 errorMessage = $"Failed to initialize drawing manager: {ex.Message}";
@@ -63,9 +69,14 @@ namespace RoguePanda.manager {
         /// Populates the DrawManager's collection of IEntity objects that will be drawn on the window.
         /// </summary>
         /// <param name="entities"></param>
-        public void setEntityBuffer(IEnumerable<IDrawObject> entities) {
-            foreach (IDrawObject ent in entities) _entityBuffer.Add(ent);
-            _entityBufferSet = true;
+        public void setTextEntityBuffer(IEnumerable<ITextObject> entities) {
+            foreach (ITextObject ent in entities) _textEntityBuffer.Add(ent);
+            _textEntityBufferSet = true;
+        }
+
+        public void setSpriteEntityBuffer(IEnumerable<ISpriteObject> entities) {
+            foreach (ISpriteObject ent in entities) _spriteEntityBuffer.Add(ent);
+            _spriteEntityBufferSet = true;
         }
 
         /// <summary>
@@ -75,16 +86,17 @@ namespace RoguePanda.manager {
         public override void run() {
             if (!_window.IsOpen()) return;
 
+            //clear screen buffer
+            _window.Clear(Color.Black);
+
             //check entity-set flag
-            if (!_entityBufferSet) {
+            if (!_textEntityBufferSet) {
                 throw new DrawManagerEntityBufferNotSetException("Entity buffer was not set before DrawManager.run was called.");
             } else {
-                //clear screen buffer
-                _window.Clear(Color.Black);
 
-                //do draw routines
-                IEnumerable<IDrawObject> sortedEntities = _entityBuffer.OrderBy((x) => x.layer);
-                foreach (IDrawObject ent in sortedEntities) {
+                //do TEXT draw routines
+                IEnumerable<ITextObject> sortedTextEntities = _textEntityBuffer.OrderBy((x) => x.layer);
+                foreach (ITextObject ent in sortedTextEntities) {
                     //init colors
                     Color backColor = new Color(ent.backColor.R, ent.backColor.G, ent.backColor.B);
                     Color foreColor = new Color(ent.foreColor.R, ent.foreColor.G, ent.foreColor.B);
@@ -105,22 +117,43 @@ namespace RoguePanda.manager {
 
                     //draw text
                     _window.Draw(txt);
-
                 }
 
-                //show drawn screen buffer
-                _window.Display();
+                //clear entity buffer and reset flag
+                _textEntityBuffer.Clear();
+                _textEntityBufferSet = false;
+            }
+
+            //do SPRITE drawing routines
+            if (!_spriteEntityBufferSet) {
+                throw new DrawManagerEntityBufferNotSetException("Entity buffer was not set before DrawManager.run was called.");
+            } else {
+                IEnumerable<ISpriteObject> sortedSpriteEntities = _spriteEntityBuffer.OrderBy((x) => x.layer);
+                foreach (ISpriteObject ent in sortedSpriteEntities) {
+                    IntRect spriteTextureRect = new IntRect(ent.texPosX, ent.texPosY, ent.width, ent.height);
+                    Sprite spr = new Sprite(TextureMapper.getTexture(ent.texID), spriteTextureRect);
+                    spr.Position = new Vector2f(ent.x, ent.y);
+                    spr.Scale = new Vector2f(ent.scaleX, ent.scaleY);
+                    //set origin at center of sprite
+                    spr.Origin = new Vector2f(ent.x + (ent.width / 2), ent.y + (ent.height / 2));
+                    spr.Rotation = ent.rotation;
+                    spr.Color = new Color(ent.color.R, ent.color.G, ent.color.B);
+                    window.Draw(spr);
+                }
 
                 //clear entity buffer and reset flag
-                _entityBuffer.Clear();
-                _entityBufferSet = false;
+                _spriteEntityBuffer.Clear();
+                _spriteEntityBufferSet = false;
             }
+
+            //show drawn screen buffer
+            _window.Display();
         }
-        
+
         /// <summary>
         /// Initializes the window with a given set of video settings.
         /// </summary>
-        /// <param name="settings">The video settings to use for confuring the window.</param>
+        /// <param name="settings">The video settings to use for configuring the window.</param>
         public void initWindow(VideoSettings settings) {
             Styles windowStyle = Styles.Close | Styles.Titlebar;
             if (settings.fullscreen) {

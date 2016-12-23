@@ -13,5 +13,6 @@
         public int StencilDepth { get; set; }
         public string WindowTitle { get; set; }
         public string DefaultModule { get; set; }
+        public bool SmoothSprites { get; set; }
     }
 }

@@ -77,8 +77,9 @@ namespace RoguePanda {
                             _inputMan.window = _drawMan.window;
                             _inputMan.init();
                         } else {
-                            //populate draw manager's entity buffer
-                            _drawMan.setEntityBuffer(_logicMan.getEntities());
+                            //populate draw manager's entity buffers
+                            _drawMan.setTextEntityBuffer(_logicMan.getTextEntities());
+                            _drawMan.setSpriteEntityBuffer(_logicMan.getSpriteEntities());
 
                             //perform draw routines
                             _drawMan.run();
