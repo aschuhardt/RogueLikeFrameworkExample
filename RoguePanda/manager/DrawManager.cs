@@ -137,7 +137,7 @@ namespace RoguePanda.manager {
                     //set origin at center of sprite
                     spr.Origin = new Vector2f(ent.x + (ent.width / 2), ent.y + (ent.height / 2));
                     spr.Rotation = ent.rotation;
-                    spr.Color = new Color(ent.color.R, ent.color.G, ent.color.B);
+                    spr.Color = new Color(ent.color.R, ent.color.G, ent.color.B, ent.alpha);
                     window.Draw(spr);
                 }
 
