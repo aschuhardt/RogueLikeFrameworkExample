@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 
 namespace RoguePanda.asset {
-    class AssetTypeMapper {
+    internal class AssetTypeMapper {
         //add more of these for future supported asset file types
         private static string[] imageExtensions = { ".jpg", ".png", ".tiff" };
 
