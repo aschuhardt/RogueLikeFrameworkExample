@@ -9,13 +9,14 @@ namespace RoguePanda {
     /// The top-level engine of this game framework.
     /// Manages the behavior of and interactions between Logic, Input, and Drawing managers.
     /// </summary>
-    public sealed class Game : IDisposable {
+    public class Game : IDisposable {
         public string errorMessage { get; }
         private bool _shouldQuit = false;
         private bool _initSuccess = false;
         private DrawManager _drawMan;
         private LogicManager _logicMan;
         private InputManager _inputMan;
+        private AudioManager _audioMan;
 
         /// <summary>
         /// The Game object's constructor.
@@ -29,7 +30,7 @@ namespace RoguePanda {
             _drawMan = new DrawManager();
             _logicMan = new LogicManager();
             _inputMan = new InputManager();
-
+            _audioMan = new AudioManager();
             
 
             if (init()) {
@@ -39,7 +40,8 @@ namespace RoguePanda {
                 errorMessage = string.Join("; ", new string[] {
                     _drawMan.errorMessage,
                     _logicMan.errorMessage,
-                    _drawMan.errorMessage
+                    _drawMan.errorMessage,
+                    _audioMan.errorMessage
                 });
             }
 
@@ -78,12 +80,18 @@ namespace RoguePanda {
                             _inputMan.init();
                         } else {
                             //populate draw manager's entity buffers
-                            _drawMan.setTextEntityBuffer(_logicMan.getTextEntities());
-                            _drawMan.setSpriteEntityBuffer(_logicMan.getSpriteEntities());
+                            _drawMan.setTextEntityBuffer(_logicMan.textEntities);
+                            _drawMan.setSpriteEntityBuffer(_logicMan.spriteEntities);
 
                             //perform draw routines
                             _drawMan.run();
                         }
+
+                        //run audio routines
+                        _audioMan.addAudioEntities(_logicMan.audioEntities);
+                        _audioMan.addStopTags(_logicMan.requestedAudioStopTags);
+                        _audioMan.run();
+                        
                     }
                 }
             }
@@ -105,6 +113,9 @@ namespace RoguePanda {
             result &= _logicMan.init();
 
             result &= _inputMan.init();
+
+            result &= _audioMan.init();
+
             return result;
         }
 

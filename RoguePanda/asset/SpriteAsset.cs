@@ -4,7 +4,7 @@ using System;
 using System.IO;
 
 namespace RoguePanda.asset {
-    internal class Sprite : AssetBase, IDisposable {
+    internal class SpriteAsset : AssetBase, IDisposable {
         Texture _texture;
 
         public Texture texture {
@@ -19,7 +19,7 @@ namespace RoguePanda.asset {
             }
         }
 
-        public Sprite(string filePath) : base(filePath) {
+        public SpriteAsset(string filePath) : base(filePath) {
 
         }
 

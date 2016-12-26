@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace RoguePanda.asset {
     internal enum AssetType {
-        Sprite
+        Sprite,
+        Audio
     }
 
     internal interface IAsset {

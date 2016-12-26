@@ -1,5 +1,5 @@
 ﻿namespace RoguePanda {
-    public sealed class Config {
+    public class Config {
         public int AntialiasingLevel { get; set; }
         public int BitDepth { get; set; }
         public int DefaultWindowHeight { get; set; }

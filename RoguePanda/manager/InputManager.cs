@@ -8,7 +8,7 @@ namespace RoguePanda.manager {
     /// <summary>
     /// Manages the detection and buffering of user-input.
     /// </summary>
-    internal sealed class InputManager : ManagerBase {
+    internal class InputManager : ManagerBase {
         //needs to have a reference to the active window so that we can handle its input events
         public RenderWindow window { get; set; }
 
@@ -35,7 +35,7 @@ namespace RoguePanda.manager {
             _inputBuffer = new List<InputType>();
         }
 
-        public bool init() {
+        public override bool init() {
             try {
                 if (window == null) {
                     throw new InputManagerWindowHandleNotSetException("Attempted to perform InputManager.run before window handle was set.");

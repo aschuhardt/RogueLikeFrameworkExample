@@ -10,15 +10,15 @@ namespace RoguePanda.manager {
     /// <summary>
     /// Manages window initialization and runs drawing routines.
     /// </summary>
-    internal sealed class DrawManager : ManagerBase, IDisposable {
+    internal class DrawManager : ManagerBase, IDisposable {
         public VideoSettings videoSettings { get; private set; }
         private RenderWindow _window;
         private Font _font;
         private bool _textEntityBufferSet;
         private bool _spriteEntityBufferSet;
         private bool _windowInitialized;
-        private ICollection<ITextObject> _textEntityBuffer;
-        private ICollection<ISpriteObject> _spriteEntityBuffer;
+        private ICollection<ITextEntity> _textEntityBuffer;
+        private ICollection<ISpriteEntity> _spriteEntityBuffer;
 
         public RenderWindow window {
             get {
@@ -35,8 +35,8 @@ namespace RoguePanda.manager {
         /// Initializes the entity buffer, as well as the entityBufferSet and windowInitialized flags.
         /// </summary>
         public DrawManager() {
-            _textEntityBuffer = new List<ITextObject>();
-            _spriteEntityBuffer = new List<ISpriteObject>();
+            _textEntityBuffer = new List<ITextEntity>();
+            _spriteEntityBuffer = new List<ISpriteEntity>();
             _textEntityBufferSet = false;
             _spriteEntityBufferSet = false;
             _windowInitialized = false;
@@ -46,7 +46,7 @@ namespace RoguePanda.manager {
         /// Initializes the SFML window and loads the default font.
         /// </summary>
         /// <returns>True if successful, false if not.</returns>
-        public bool init() {
+        public override bool init() {
             try {
                 VideoSettings defaultVideoSettings = new VideoSettings() {
                     width = Convert.ToUInt32(ConfigManager.Config.DefaultWindowWidth),
@@ -69,13 +69,13 @@ namespace RoguePanda.manager {
         /// Populates the DrawManager's collection of IEntity objects that will be drawn on the window.
         /// </summary>
         /// <param name="entities"></param>
-        public void setTextEntityBuffer(IEnumerable<ITextObject> entities) {
-            foreach (ITextObject ent in entities) _textEntityBuffer.Add(ent);
+        public void setTextEntityBuffer(IEnumerable<ITextEntity> entities) {
+            foreach (ITextEntity ent in entities) _textEntityBuffer.Add(ent);
             _textEntityBufferSet = true;
         }
 
-        public void setSpriteEntityBuffer(IEnumerable<ISpriteObject> entities) {
-            foreach (ISpriteObject ent in entities) _spriteEntityBuffer.Add(ent);
+        public void setSpriteEntityBuffer(IEnumerable<ISpriteEntity> entities) {
+            foreach (ISpriteEntity ent in entities) _spriteEntityBuffer.Add(ent);
             _spriteEntityBufferSet = true;
         }
 
@@ -95,8 +95,8 @@ namespace RoguePanda.manager {
             } else {
 
                 //do TEXT draw routines
-                IEnumerable<ITextObject> sortedTextEntities = _textEntityBuffer.OrderBy((x) => x.layer);
-                foreach (ITextObject ent in sortedTextEntities) {
+                IEnumerable<ITextEntity> sortedTextEntities = _textEntityBuffer.OrderBy((x) => x.layer);
+                foreach (ITextEntity ent in sortedTextEntities) {
                     //init colors
                     Color backColor = new Color(ent.backColor.R, ent.backColor.G, ent.backColor.B);
                     Color foreColor = new Color(ent.foreColor.R, ent.foreColor.G, ent.foreColor.B);
@@ -128,8 +128,8 @@ namespace RoguePanda.manager {
             if (!_spriteEntityBufferSet) {
                 throw new DrawManagerEntityBufferNotSetException("Entity buffer was not set before DrawManager.run was called.");
             } else {
-                IEnumerable<ISpriteObject> sortedSpriteEntities = _spriteEntityBuffer.OrderBy((x) => x.layer);
-                foreach (ISpriteObject ent in sortedSpriteEntities) {
+                IEnumerable<ISpriteEntity> sortedSpriteEntities = _spriteEntityBuffer.OrderBy((x) => x.layer);
+                foreach (ISpriteEntity ent in sortedSpriteEntities) {
                     IntRect spriteTextureRect = new IntRect(ent.texPosX, ent.texPosY, ent.width, ent.height);
                     Sprite spr = new Sprite(TextureMapper.getTexture(ent.assetID), spriteTextureRect);
                     spr.Origin = new Vector2f((ent.width / 2), (ent.height / 2));

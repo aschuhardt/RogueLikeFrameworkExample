@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Linq;
 using RoguePanda.entity;
 using RoguePanda.modules;
 using System.Collections.Generic;
 
 namespace RoguePanda.manager {
-    internal sealed class LogicManager : ManagerBase {
+    internal class LogicManager : ManagerBase {
         private string DEFAULT_STATE = ConfigManager.Config.DefaultModule;
 
-        private IList<ITextObject> _textEntities;
-        private IList<ISpriteObject> _spriteEntities;
+        private IList<ITextEntity> _textEntities;
+        private IList<ISpriteEntity> _spriteEntities;
+        private IList<IAudioEntity> _audioEntities;
+        private IList<string> _requestedAudioStopTags;
         private IModule _currentModule;
 
         public InputType currentInput { get; set; }
@@ -17,11 +20,13 @@ namespace RoguePanda.manager {
         public VideoSettings videoSettings { get; set; }
 
         public LogicManager() {
-            _textEntities = new List<ITextObject>();
-            _spriteEntities = new List<ISpriteObject>();
+            _textEntities = new List<ITextEntity>();
+            _spriteEntities = new List<ISpriteEntity>();
+            _audioEntities = new List<IAudioEntity>();
+            _requestedAudioStopTags = new List<string>();
         }
 
-        public bool init() {
+        public override bool init() {
             //start at MainMenu state
             _currentModule = StateMapper.TransitToState(DEFAULT_STATE);
             _currentModule.videoSettings = videoSettings ?? null;
@@ -36,6 +41,8 @@ namespace RoguePanda.manager {
             //clear entity buffers
             _textEntities.Clear();
             _spriteEntities.Clear();
+            _audioEntities.Clear();
+            _requestedAudioStopTags.Clear();
 
             //transit states if needed
             if (_currentModule.closing) {
@@ -62,8 +69,10 @@ namespace RoguePanda.manager {
             //wait until the window has a chance to reinitialize before sending the entities for drawing
             if (!shouldReInitializeWindow) {
                 //cache entities created by module
-                foreach (ITextObject ent in _currentModule.textObjects) _textEntities.Add(ent);
-                foreach (ISpriteObject ent in _currentModule.spriteObjects) _spriteEntities.Add(ent);
+                foreach (ITextEntity ent in _currentModule.textEntities) _textEntities.Add(ent);
+                foreach (ISpriteEntity ent in _currentModule.spriteEntities) _spriteEntities.Add(ent);
+                foreach (IAudioEntity ent in _currentModule.audioEntities) _audioEntities.Add(ent);
+                foreach (string tag in _currentModule.requestedAudioStopTags) _requestedAudioStopTags.Add(tag);
             } else {
                 videoSettings = _currentModule.videoSettings;
                 //reinitialize window with new settings
@@ -72,12 +81,28 @@ namespace RoguePanda.manager {
             }
         }
 
-        public IEnumerable<ITextObject> getTextEntities() {
-            return _textEntities;
+        public IEnumerable<ITextEntity> textEntities {
+            get {
+                return _textEntities;
+            }
         }
 
-        public IEnumerable<ISpriteObject> getSpriteEntities() {
-            return _spriteEntities;
+        public IEnumerable<ISpriteEntity> spriteEntities {
+            get {
+                return _spriteEntities;
+            }
+        }
+
+        public IEnumerable<IAudioEntity> audioEntities {
+            get {
+                return _audioEntities;
+            }
+        }
+
+        public IEnumerable<string> requestedAudioStopTags {
+            get {
+                return _requestedAudioStopTags;
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using RoguePanda.entity.color;
 
 namespace RoguePanda.entity {
-    internal class TextObjectBase : ITextObject {
+    internal class TextEntityBase : ITextEntity {
         public string content { get; set; }
         public EntityColor foreColor { get; set; }
         public EntityColor backColor { get; set; }
@@ -9,6 +9,6 @@ namespace RoguePanda.entity {
         public float y { get; set; }
         public float layer { get; set; }
 
-        protected TextObjectBase() { }
+        protected TextEntityBase() { }
     }
 }

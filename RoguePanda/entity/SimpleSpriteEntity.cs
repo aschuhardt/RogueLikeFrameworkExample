@@ -1,8 +1,8 @@
 ﻿using RoguePanda.entity.color;
 
 namespace RoguePanda.entity {
-    internal class SimpleSpriteObject : SpriteObjectBase {
-        public SimpleSpriteObject(string assetName, int width, int height, float layer) : base() {
+    internal class SimpleSpriteEntity : SpriteEntityBase {
+        public SimpleSpriteEntity(string assetName, int width, int height, float layer) : base() {
             this.assetID = assetName;
             this.width = width;
             this.height = height;

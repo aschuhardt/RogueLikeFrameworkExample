@@ -9,11 +9,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RoguePanda</RootNamespace>
     <AssemblyName>RoguePanda</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -42,6 +43,9 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.2-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="sfmlnet-audio-2">
+      <HintPath>..\packages\SFML.Net.2.1.5\lib\sfmlnet-audio-2.dll</HintPath>
+    </Reference>
     <Reference Include="sfmlnet-graphics-2, Version=2.1.0.0, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\packages\SFML.Net.2.1.5\lib\sfmlnet-graphics-2.dll</HintPath>
       <Private>True</Private>
@@ -62,26 +66,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="asset\AssetCache.cs" />
-    <Compile Include="asset\AssetNotFoundException.cs" />
+    <Compile Include="asset\exceptions\AssetNotFoundException.cs" />
     <Compile Include="asset\AssetTypeMapper.cs" />
-    <Compile Include="asset\IncorrectAssetTypeException.cs" />
-    <Compile Include="asset\UnknownFileTypeException.cs" />
+    <Compile Include="asset\AudioAsset.cs" />
+    <Compile Include="asset\exceptions\IncorrectAssetTypeException.cs" />
+    <Compile Include="asset\exceptions\UnknownFileTypeException.cs" />
+    <Compile Include="asset\AudioMapper.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="entity\base\SpriteObjectBase.cs" />
-    <Compile Include="entity\interface\ISpriteObject.cs" />
-    <Compile Include="entity\base\TextObjectBase.cs" />
+    <Compile Include="entity\base\AudioEntityBase.cs" />
+    <Compile Include="entity\base\SpriteEntityBase.cs" />
+    <Compile Include="entity\interface\IAudioEntity.cs" />
+    <Compile Include="entity\interface\ISpriteEntity.cs" />
+    <Compile Include="entity\base\TextEntityBase.cs" />
     <Compile Include="entity\entitycolor\EntityColor.cs" />
     <Compile Include="entity\entitycolor\InvalidEntityColorValueException.cs" />
     <Compile Include="entity\DrawingMacros.cs" />
-    <Compile Include="entity\FlexibleTextObject.cs" />
-    <Compile Include="entity\interface\ITextObject.cs" />
-    <Compile Include="entity\SimpleSpriteObject.cs" />
+    <Compile Include="entity\SimpleAudioEntity.cs" />
+    <Compile Include="entity\SimpleTextEntity.cs" />
+    <Compile Include="entity\interface\ITextEntity.cs" />
+    <Compile Include="entity\SimpleSpriteEntity.cs" />
     <Compile Include="InputType.cs" />
-    <Compile Include="asset\AssetFileNotFoundException.cs" />
+    <Compile Include="asset\exceptions\AssetFileNotFoundException.cs" />
     <Compile Include="asset\base\AssetBase.cs" />
     <Compile Include="asset\interface\IAsset.cs" />
-    <Compile Include="asset\InvalidAssetStreamAccessException.cs" />
-    <Compile Include="asset\Sprite.cs" />
+    <Compile Include="asset\exceptions\InvalidAssetStreamAccessException.cs" />
+    <Compile Include="asset\SpriteAsset.cs" />
+    <Compile Include="manager\AudioManager.cs" />
     <Compile Include="manager\ConfigManager.cs" />
     <Compile Include="manager\DrawManager.cs" />
     <Compile Include="Game.cs" />
@@ -94,8 +104,8 @@
     <Compile Include="modules\base\ModuleBase.cs" />
     <Compile Include="modules\interface\IModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StateMapper.cs" />
-    <Compile Include="TextureMapper.cs" />
+    <Compile Include="modules\StateMapper.cs" />
+    <Compile Include="asset\TextureMapper.cs" />
     <Compile Include="VideoSettings.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +118,9 @@
     <Content Include="config\config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="assets\chirp.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <EmbeddedResource Include="lib\csfml-graphics-2.dll" />
     <EmbeddedResource Include="lib\csfml-window-2.dll" />
@@ -116,6 +129,7 @@
     <EmbeddedResource Include="lib\openal32.dll" />
     <EmbeddedResource Include="lib\sfmlnet-graphics-2.dll" />
     <EmbeddedResource Include="lib\sfmlnet-window-2.dll" />
+    <EmbeddedResource Include="lib\csfml-audio-2.dll" />
     <Content Include="typeface\MorePerfectDOSVGA.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

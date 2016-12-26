@@ -1,7 +1,7 @@
 ﻿using RoguePanda.entity.color;
 
 namespace RoguePanda.entity {
-    internal class SpriteObjectBase : ISpriteObject {
+    internal class SpriteEntityBase : ISpriteEntity {
         public string assetID { get; set; }
         public EntityColor color { get; set; }
         public byte alpha { get; set; }
@@ -16,6 +16,6 @@ namespace RoguePanda.entity {
         public int texPosY { get; set; }
         public float layer { get; set; }
 
-        protected SpriteObjectBase() { }
+        protected SpriteEntityBase() { }
     }
 }

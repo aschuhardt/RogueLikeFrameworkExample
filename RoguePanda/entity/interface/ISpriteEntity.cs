@@ -1,7 +1,7 @@
 ﻿using RoguePanda.entity.color;
 
 namespace RoguePanda.entity {
-    public interface ISpriteObject {
+    public interface ISpriteEntity {
         string assetID { get; set; }
         EntityColor color { get; }
         byte alpha { get; set; }

@@ -11,15 +11,15 @@ namespace RoguePanda.entity {
 
         private DrawingMacros() { }
 
-        public static ITextObject[] drawRect(string glyph, EntityColor foreColor, EntityColor backColor, float x1, float y1, float x2, float y2, float layer = 0.0f) {
-            List<ITextObject> result = new List<ITextObject>();
+        public static ITextEntity[] drawRect(string glyph, EntityColor foreColor, EntityColor backColor, float x1, float y1, float x2, float y2, float layer = 0.0f) {
+            List<ITextEntity> result = new List<ITextEntity>();
 
             int tileWidth = ConfigManager.Config.FontWidth;
             int tileHeight = ConfigManager.Config.FontHeight;
 
             for (int x = Convert.ToInt32(x1 / tileWidth); x <= Math.Round(x2 / tileWidth); x++) {
                 for (int y = Convert.ToInt32(y1 / tileHeight); y <= Math.Round(y2 / tileHeight); y++) {
-                    FlexibleTextObject ent = new FlexibleTextObject(glyph, foreColor, backColor, x * tileWidth, y * tileHeight, layer);
+                    SimpleTextEntity ent = new SimpleTextEntity(glyph, foreColor, backColor, x * tileWidth, y * tileHeight, layer);
                     result.Add(ent);
                 }
             }
@@ -27,8 +27,8 @@ namespace RoguePanda.entity {
             return result.ToArray();
         }
 
-        public static ITextObject[] drawWindowBorders(uint width, uint height, EntityColor borderForeColor, EntityColor borderBackColor, float layer = 0.0f) {
-            List<ITextObject> result = new List<ITextObject>();
+        public static ITextEntity[] drawWindowBorders(uint width, uint height, EntityColor borderForeColor, EntityColor borderBackColor, float layer = 0.0f) {
+            List<ITextEntity> result = new List<ITextEntity>();
             int fontHeight = ConfigManager.Config.FontHeight;
             int fontWidth = ConfigManager.Config.FontWidth;
 
