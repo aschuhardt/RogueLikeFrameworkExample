@@ -102,7 +102,7 @@ namespace RoguePanda.manager {
                     Color foreColor = new Color(ent.foreColor.R, ent.foreColor.G, ent.foreColor.B);
 
                     //init text object
-                    Text txt = new Text(ent.contents, _font, Convert.ToUInt32(ConfigManager.Config.FontHeight));
+                    Text txt = new Text(ent.content, _font, Convert.ToUInt32(ConfigManager.Config.FontHeight));
                     txt.Position = new Vector2f(ent.x, ent.y);
                     txt.Color = foreColor;
 
@@ -131,11 +131,11 @@ namespace RoguePanda.manager {
                 IEnumerable<ISpriteObject> sortedSpriteEntities = _spriteEntityBuffer.OrderBy((x) => x.layer);
                 foreach (ISpriteObject ent in sortedSpriteEntities) {
                     IntRect spriteTextureRect = new IntRect(ent.texPosX, ent.texPosY, ent.width, ent.height);
-                    Sprite spr = new Sprite(TextureMapper.getTexture(ent.texID), spriteTextureRect);
+                    Sprite spr = new Sprite(TextureMapper.getTexture(ent.assetID), spriteTextureRect);
+                    spr.Origin = new Vector2f((ent.width / 2), (ent.height / 2));
                     spr.Position = new Vector2f(ent.x, ent.y);
                     spr.Scale = new Vector2f(ent.scaleX, ent.scaleY);
                     //set origin at center of sprite
-                    spr.Origin = new Vector2f(ent.x + (ent.width / 2), ent.y + (ent.height / 2));
                     spr.Rotation = ent.rotation;
                     spr.Color = new Color(ent.color.R, ent.color.G, ent.color.B, ent.alpha);
                     window.Draw(spr);

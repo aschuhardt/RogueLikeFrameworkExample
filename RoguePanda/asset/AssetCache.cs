@@ -44,7 +44,7 @@ namespace RoguePanda.asset {
 
         private bool isValidFileName(string fn, string[] ignorePatterns) {
             foreach (string ext in ignorePatterns) {
-                if (!fn.EndsWith(ext)) {
+                if (fn.EndsWith(ext)) {
                     return false;
                 }
             }

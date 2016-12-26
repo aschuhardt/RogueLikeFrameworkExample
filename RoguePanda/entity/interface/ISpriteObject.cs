@@ -2,7 +2,7 @@
 
 namespace RoguePanda.entity {
     public interface ISpriteObject {
-        string texID { get; set; }
+        string assetID { get; set; }
         EntityColor color { get; }
         byte alpha { get; set; }
         int width { get; set; }

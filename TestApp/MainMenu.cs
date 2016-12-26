@@ -9,12 +9,14 @@ namespace testmodule {
         private int _lastTicks;
         private int _curFrameCounter;
 
+        private float _rotationAmount;
+
         private List<label> labels;
 
         private class label {
             public int id { get; set; }
-            public float x { get; set; }
-            public float y { get; set; }
+            public int x { get; set; }
+            public int y { get; set; }
         }
 
         protected override string getModuleState() {
@@ -25,6 +27,7 @@ namespace testmodule {
             _curFrameCounter = 0;
             _lastTicks = Environment.TickCount;
             labels = new List<label>();
+            _rotationAmount = 0.0f;
             return true;
         }
 
@@ -43,9 +46,15 @@ namespace testmodule {
 
         protected override void runModule() {
             clearDrawObjects();
-            
+
+            //addSimpleSpriteObject("dummy", 128, 128, false, x: 400, y: 400, rotation: _rotationAmount, scaleX: 0.2f, scaleY: 0.2f);
+
+            _rotationAmount += 1.0f;
+            _rotationAmount = _rotationAmount % 360;
+
             foreach (label l in labels) {
-                addTextObject(l.id.ToString(), EntityColor.createRGB(255, 240, 255), EntityColor.createRGB(0, 0, 0), l.x, l.y);
+                //addTextObject(l.id.ToString(), EntityColor.createRGB(255, 240, 255), EntityColor.createRGB(0, 0, 0), l.x, l.y);
+                addSimpleSpriteObject("dummy", 128, 128, false, x: l.y, y: l.x, rotation: _rotationAmount, scaleX: 0.4f, scaleY: 0.4f);
             }
 
             if (testInput(RoguePanda.InputType.Enter)) {
@@ -55,6 +64,9 @@ namespace testmodule {
                 l.x = rand.Next(0, Convert.ToInt32(_windowWidth - ConfigManager.Config.FontWidth));
                 l.y = rand.Next(0, Convert.ToInt32(_windowHeight - ConfigManager.Config.FontHeight));
                 labels.Add(l);
+                addTextObject(string.Format("Enter is pressed!"), EntityColor.createRGB(255, 240, 255), EntityColor.createRGB(0, 0, 0), 200, 0, false);
+            } else {
+                addTextObject(string.Format("Enter is NOT pressed!"), EntityColor.createRGB(255, 240, 255), EntityColor.createRGB(0, 0, 0), 200, 0, false);
             }
 
             float fps = frameRate();

@@ -67,6 +67,7 @@
     <Compile Include="asset\IncorrectAssetTypeException.cs" />
     <Compile Include="asset\UnknownFileTypeException.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="entity\base\SpriteObjectBase.cs" />
     <Compile Include="entity\interface\ISpriteObject.cs" />
     <Compile Include="entity\base\TextObjectBase.cs" />
     <Compile Include="entity\entitycolor\EntityColor.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="entity\DrawingMacros.cs" />
     <Compile Include="entity\FlexibleTextObject.cs" />
     <Compile Include="entity\interface\ITextObject.cs" />
+    <Compile Include="entity\SimpleSpriteObject.cs" />
     <Compile Include="InputType.cs" />
     <Compile Include="asset\AssetFileNotFoundException.cs" />
     <Compile Include="asset\base\AssetBase.cs" />

@@ -2,9 +2,9 @@
 
 namespace RoguePanda.entity {
     public interface ITextObject {
-        string contents { get; }
-        EntityColor foreColor { get; }
-        EntityColor backColor { get; }
+        string content { get; set; }
+        EntityColor foreColor { get; set; }
+        EntityColor backColor { get; set; }
         float x { get; set; }
         float y { get; set; }
         float layer { get; set; }

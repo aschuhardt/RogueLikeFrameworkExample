@@ -127,11 +127,26 @@ namespace RoguePanda.modules {
         protected bool testInput(InputType inType) {
             return InputFlagHelper.isInputFlagSet(_input, inType);
         }
-        
+
         protected void addTextObject(string content, EntityColor foreColor, EntityColor backColor, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
             ITextObject newEnt = new FlexibleTextObject(content, foreColor, backColor, x, y, layer);
             _textObjects.Add(newEnt);
+        }
+
+        protected void addSimpleSpriteObject(string assetName, int width, int height, bool isStatic, int x = 0, int y = 0, float rotation = 0.0f, float scaleX = 1.0f, float scaleY = 1.0f, byte alpha = 255, int textureX = 0, int textureY = 0) {
+            float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
+            ISpriteObject newEnt = new SimpleSpriteObject(assetName, width, height, layer) {
+                x = x,
+                y = y,
+                rotation = rotation,
+                scaleX = scaleX,
+                scaleY = scaleY,
+                alpha = 255,
+                texPosX = textureX,
+                texPosY = textureY
+            };
+            _spriteObjects.Add(newEnt);
         }
 
         protected void drawBorders(EntityColor foreColor, EntityColor backColor, bool isStatic = true) {
