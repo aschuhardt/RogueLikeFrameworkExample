@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RoguePanda.asset {
+    [Serializable]
     public class InvalidAssetStreamAccessException : Exception {
         public InvalidAssetStreamAccessException() { }
         public InvalidAssetStreamAccessException(string message) : base(message) { }

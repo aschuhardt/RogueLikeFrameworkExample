@@ -1,8 +1,9 @@
 ﻿using SFML.Graphics;
+using System;
 using System.IO;
 
 namespace RoguePanda.asset {
-    internal class Sprite : AssetBase {
+    internal class Sprite : AssetBase, IDisposable {
         Texture _texture;
 
         public Texture texture {
@@ -22,6 +23,10 @@ namespace RoguePanda.asset {
 
         protected override AssetType getAssetType() {
             return AssetType.Sprite;
+        }
+
+        public void Dispose() {
+            ((IDisposable)_texture).Dispose();
         }
     }
 }
