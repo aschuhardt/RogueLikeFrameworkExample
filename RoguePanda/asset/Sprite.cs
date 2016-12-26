@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using RoguePanda.manager;
+using SFML.Graphics;
 using System;
 using System.IO;
 
@@ -11,6 +12,7 @@ namespace RoguePanda.asset {
                 if (_texture == null) {
                     using (MemoryStream ms = fileStream) {
                         _texture = new Texture(ms);
+                        _texture.Smooth = ConfigManager.Config.SmoothSprites;
                     }
                 }
                 return _texture;
