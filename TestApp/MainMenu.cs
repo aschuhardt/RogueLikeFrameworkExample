@@ -6,14 +6,8 @@ using System;
 
 namespace testmodule {
     class MainMenu : ModuleBase {
-        private float dx = 1.0f;
-        private float dy = 1.0f;
-        private float x = 0.0f;
-        private float y = 0.0f;
-        private string text = "asdf";
-
         private int _lastTicks;
-        private int numFrames;
+        private int _curFrameCounter;
 
         private List<label> labels;
 
@@ -28,7 +22,7 @@ namespace testmodule {
         }
 
         protected override bool initModule(IList<object> parameters) {
-            numFrames = 0;
+            _curFrameCounter = 0;
             _lastTicks = Environment.TickCount;
             labels = new List<label>();
             return true;
@@ -37,13 +31,13 @@ namespace testmodule {
         private float frameRate() {
             int curTicks = Environment.TickCount;
             if (curTicks - _lastTicks < 1000) {
-                numFrames++;
+                _curFrameCounter++;
                 return -1.0f;
             } else {
                 _lastTicks = curTicks;
-                int x = numFrames;
-                numFrames = 0;
-                return x;
+                int frames = _curFrameCounter;
+                _curFrameCounter = 0;
+                return frames;
             }
         }
 

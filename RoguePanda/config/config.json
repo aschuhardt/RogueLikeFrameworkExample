@@ -1,5 +1,11 @@
 ﻿{
   "AntialiasingLevel": 1,
+  "AssetDirectories": [
+    "assets/"
+  ],
+  "AssetIgnoreExtensions": [
+    ".txt"
+  ],
   "BitDepth": 24,
   "DefaultModule": "testmodule.MainMenu",
   "DefaultWindowHeight": 600,
@@ -10,7 +16,7 @@
   "FontPath": "typeface/MorePerfectDOSVGA.ttf",
   "FontWidth": 9,
   "LineDelimiter": "%endline%",
+  "SmoothSprites": false,
   "StencilDepth": 0,
-  "WindowTitle": "RoguePanda",
-  "SmoothSprites": false
+  "WindowTitle": "RoguePanda"
 }

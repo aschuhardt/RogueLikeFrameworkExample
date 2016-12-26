@@ -1,15 +1,16 @@
-﻿using SFML.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RoguePanda.asset;
+using SFML.Graphics;
 
 namespace RoguePanda {
     internal class TextureMapper {
-        //TODO: Expand on this, this is just a stub.
         public static Texture getTexture(string id) {
-            return new Texture(32, 32);
+            IAsset imgAsset = AssetCache.cachedAsset(id);
+            if (imgAsset.assetType == AssetType.Sprite) {
+                return ((asset.Sprite)imgAsset).texture;
+            } else {
+                string msg = $"Incorrect asset type: Was expecting a Sprite, but the supplied asset name \"{id}\" refers to an asset of type \"{imgAsset.assetType.ToString()}\".";
+                throw new InvalidAssetStreamAccessException(msg);
+            }
         }
     }
 }

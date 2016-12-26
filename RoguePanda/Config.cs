@@ -14,5 +14,7 @@
         public string WindowTitle { get; set; }
         public string DefaultModule { get; set; }
         public bool SmoothSprites { get; set; }
+        public string[] AssetDirectories { get; set; }
+        public string[] AssetIgnoreExtensions { get; set; }
     }
 }

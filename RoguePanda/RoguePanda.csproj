@@ -61,6 +61,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="asset\AssetCache.cs" />
+    <Compile Include="asset\AssetNotFoundException.cs" />
+    <Compile Include="asset\AssetTypeMapper.cs" />
+    <Compile Include="asset\IncorrectAssetTypeException.cs" />
+    <Compile Include="asset\UnknownFileTypeException.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="entity\interface\ISpriteObject.cs" />
     <Compile Include="entity\base\TextObjectBase.cs" />
@@ -70,6 +75,11 @@
     <Compile Include="entity\FlexibleTextObject.cs" />
     <Compile Include="entity\interface\ITextObject.cs" />
     <Compile Include="InputType.cs" />
+    <Compile Include="asset\AssetFileNotFoundException.cs" />
+    <Compile Include="asset\base\AssetBase.cs" />
+    <Compile Include="asset\interface\IAsset.cs" />
+    <Compile Include="asset\InvalidAssetStreamAccessException.cs" />
+    <Compile Include="asset\Sprite.cs" />
     <Compile Include="manager\ConfigManager.cs" />
     <Compile Include="manager\DrawManager.cs" />
     <Compile Include="Game.cs" />
@@ -87,6 +97,9 @@
     <Compile Include="VideoSettings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\dummy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="config\config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
