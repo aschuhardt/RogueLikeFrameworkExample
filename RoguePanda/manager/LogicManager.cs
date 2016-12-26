@@ -5,9 +5,10 @@ using System.Collections.Generic;
 
 namespace RoguePanda.manager {
     internal sealed class LogicManager : ManagerBase {
-        private string DEFAULT_STATE = ConfigManager.Instance.Configuration.DefaultModule;
+        private string DEFAULT_STATE = ConfigManager.Config.DefaultModule;
 
-        private IList<IDrawObject> _entities;
+        private IList<ITextObject> _textEntities;
+        private IList<ISpriteObject> _spriteEntities;
         private IModule _currentModule;
 
         public InputType currentInput { get; set; }
@@ -16,7 +17,8 @@ namespace RoguePanda.manager {
         public VideoSettings videoSettings { get; set; }
 
         public LogicManager() {
-            _entities = new List<IDrawObject>();
+            _textEntities = new List<ITextObject>();
+            _spriteEntities = new List<ISpriteObject>();
         }
 
         public bool init() {
@@ -31,8 +33,9 @@ namespace RoguePanda.manager {
             //reset window-reinit flag
             shouldReInitializeWindow = false;
 
-            //clear entity buffer
-            _entities.Clear();
+            //clear entity buffers
+            _textEntities.Clear();
+            _spriteEntities.Clear();
 
             //transit states if needed
             if (_currentModule.closing) {
@@ -59,7 +62,8 @@ namespace RoguePanda.manager {
             //wait until the window has a chance to reinitialize before sending the entities for drawing
             if (!shouldReInitializeWindow) {
                 //cache entities created by module
-                foreach (IDrawObject ent in _currentModule.drawObjects) _entities.Add(ent);
+                foreach (ITextObject ent in _currentModule.textObjects) _textEntities.Add(ent);
+                foreach (ISpriteObject ent in _currentModule.spriteObjects) _spriteEntities.Add(ent);
             } else {
                 videoSettings = _currentModule.videoSettings;
                 //reinitialize window with new settings
@@ -68,9 +72,12 @@ namespace RoguePanda.manager {
             }
         }
 
-        public IEnumerable<IDrawObject> getEntities() {
-            return _entities;
+        public IEnumerable<ITextObject> getTextEntities() {
+            return _textEntities;
         }
 
+        public IEnumerable<ISpriteObject> getSpriteEntities() {
+            return _spriteEntities;
+        }
     }
 }

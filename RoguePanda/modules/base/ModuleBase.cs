@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RoguePanda.entity;
-using RoguePanda.entity.entitycolor;
+using RoguePanda.entity.color;
 
 namespace RoguePanda.modules {
     public abstract class ModuleBase : IModule {
         private const float ENTITY_LAYER_STATIC = float.MinValue;
         private const float ENTITY_LAYER_NORMAL = 0.0f;
-        private IList<IDrawObject> _drawObjects;
+        private IList<ITextObject> _textObjects;
+        private IList<ISpriteObject> _spriteObjects;
         private IList<object> _transferParams;
         private InputType _input;
         private bool _closing;
@@ -25,9 +27,15 @@ namespace RoguePanda.modules {
             }
         }
 
-        public IEnumerable<IDrawObject> drawObjects {
+        public IEnumerable<ITextObject> textObjects {
             get {
-                return _drawObjects;
+                return _textObjects;
+            }
+        }
+
+        public IEnumerable<ISpriteObject> spriteObjects {
+            get {
+                return _spriteObjects;
             }
         }
 
@@ -78,6 +86,7 @@ namespace RoguePanda.modules {
             }
         }
 
+
         public bool init(IList<object> parameters) {
             _windowWidth = _videoSettings.width;
             _windowHeight = _videoSettings.height;
@@ -90,7 +99,8 @@ namespace RoguePanda.modules {
 
         public ModuleBase() {
             _closing = false;
-            _drawObjects = new List<IDrawObject>();
+            _textObjects = new List<ITextObject>();
+            _spriteObjects = new List<ISpriteObject>();
             _transferParams = new List<object>();
             _reinitWindow = false;
             _videoSettings = null;
@@ -117,46 +127,42 @@ namespace RoguePanda.modules {
         protected bool testInput(InputType inType) {
             return InputFlagHelper.isInputFlagSet(_input, inType);
         }
-
-        protected void addDrawObject(string content, Colors foreColor, Colors backColor, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
-            DrawObjectColor mappedForeColor = ColorMapper.getColor(foreColor);
-            DrawObjectColor mappedBackColor = ColorMapper.getColor(backColor);
-            addDrawObject(content, mappedForeColor, mappedBackColor, x, y, isStatic);
+        
+        protected void addTextObject(string content, EntityColor foreColor, EntityColor backColor, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
+            float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
+            ITextObject newEnt = new FlexibleTextObject(content, foreColor, backColor, x, y, layer);
+            _textObjects.Add(newEnt);
         }
 
-        protected void addDrawObject(string content, DrawObjectColor foreColor, DrawObjectColor backColor, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
+        protected void drawBorders(EntityColor foreColor, EntityColor backColor, bool isStatic = true) {
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
-            IDrawObject newEnt = new FlexibleEntity(content, foreColor, backColor, x, y, layer);
-            _drawObjects.Add(newEnt);
-        }
-
-        protected void drawBorders(bool isStatic = true) {
-            DrawObjectColor mappedForeColor = ColorMapper.getColor(Colors.Border_ForeColor);
-            DrawObjectColor mappedBackColor = ColorMapper.getColor(Colors.Border_BackColor);
-            float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
-            foreach (IDrawObject ent in DrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, mappedForeColor, mappedBackColor, layer)) {
-                _drawObjects.Add(ent);
+            foreach (ITextObject ent in DrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, foreColor, backColor, layer)) {
+                _textObjects.Add(ent);
             }
         }
 
-        protected void drawRect(string content, Colors foreColor, Colors backColor, float x1, float y1, float x2, float y2, bool isStatic = false) {
-            DrawObjectColor mappedForeColor = ColorMapper.getColor(foreColor);
-            DrawObjectColor mappedBackColor = ColorMapper.getColor(backColor);
+        protected void drawRect(string content, EntityColor foreColor, EntityColor backColor, float x1, float y1, float x2, float y2, bool isStatic = false) {
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
-            foreach (IDrawObject ent in DrawingMacros.drawRect(content, mappedForeColor, mappedBackColor, x1, y1, x2, y2, layer)) {
-                _drawObjects.Add(ent);
+            foreach (ITextObject ent in DrawingMacros.drawRect(content, foreColor, backColor, x1, y1, x2, y2, layer)) {
+                _textObjects.Add(ent);
             }
         }
 
         protected void clearDrawObjects(bool preserveStatics = true) {
             if (preserveStatics) {
-                IList<IDrawObject> staticEntities = new List<IDrawObject>(_drawObjects.Where((x) => x.layer == ENTITY_LAYER_STATIC));
-                _drawObjects.Clear();
-                foreach (IDrawObject ent in staticEntities) {
-                    _drawObjects.Add(ent);
+                IList<ITextObject> staticTextEntities = new List<ITextObject>(_textObjects.Where((x) => x.layer == ENTITY_LAYER_STATIC));
+                IList<ISpriteObject> staticSpriteEntities = new List<ISpriteObject>(_spriteObjects.Where((x) => x.layer == ENTITY_LAYER_STATIC));
+                _textObjects.Clear();
+                _spriteObjects.Clear();
+                foreach (ITextObject ent in staticTextEntities) {
+                    _textObjects.Add(ent);
+                }
+                foreach (ISpriteObject ent in staticSpriteEntities) {
+                    _spriteObjects.Add(ent);
                 }
             } else {
-                _drawObjects.Clear();
+                _textObjects.Clear();
+                _spriteObjects.Clear();
             }
         }
 

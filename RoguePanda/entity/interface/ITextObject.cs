@@ -1,10 +1,10 @@
-﻿using RoguePanda.entity.entitycolor;
+﻿using RoguePanda.entity.color;
 
 namespace RoguePanda.entity {
-    public interface IDrawObject {
+    public interface ITextObject {
         string contents { get; }
-        DrawObjectColor foreColor { get; }
-        DrawObjectColor backColor { get; }
+        EntityColor foreColor { get; }
+        EntityColor backColor { get; }
         float x { get; set; }
         float y { get; set; }
         float layer { get; set; }

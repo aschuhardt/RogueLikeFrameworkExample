@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Reflection;
+using System.IO;
 using RoguePanda.manager;
 
 namespace RoguePanda {
+
     /// <summary>
     /// The top-level engine of this game framework.
     /// Manages the behavior of and interactions between Logic, Input, and Drawing managers.
@@ -13,7 +16,6 @@ namespace RoguePanda {
         private DrawManager _drawMan;
         private LogicManager _logicMan;
         private InputManager _inputMan;
-        private VideoSettings _defaultVideoSettings;
 
         /// <summary>
         /// The Game object's constructor.
@@ -21,16 +23,14 @@ namespace RoguePanda {
         /// If any manager fails to initialize, its error message will be appended onto the "errorMessage" string that is a member of this object here.
         /// </summary>
         public Game() {
+            //extract required libs if they don't exist
+            extractDependencies();
+
             _drawMan = new DrawManager();
             _logicMan = new LogicManager();
             _inputMan = new InputManager();
 
-            _defaultVideoSettings = new VideoSettings() {
-                width = Convert.ToUInt32(ConfigManager.Instance.Configuration.DefaultWindowWidth),
-                height = Convert.ToUInt32(ConfigManager.Instance.Configuration.DefaultWindowHeight),
-                aalevel = Convert.ToUInt32(ConfigManager.Instance.Configuration.AntialiasingLevel),
-                fullscreen = false
-            };
+            
 
             if (init()) {
                 _initSuccess = true;
@@ -77,8 +77,9 @@ namespace RoguePanda {
                             _inputMan.window = _drawMan.window;
                             _inputMan.init();
                         } else {
-                            //populate draw manager's entity buffer
-                            _drawMan.setEntityBuffer(_logicMan.getEntities());
+                            //populate draw manager's entity buffers
+                            _drawMan.setTextEntityBuffer(_logicMan.getTextEntities());
+                            _drawMan.setSpriteEntityBuffer(_logicMan.getSpriteEntities());
 
                             //perform draw routines
                             _drawMan.run();
@@ -94,14 +95,13 @@ namespace RoguePanda {
         /// <returns></returns>
         private bool init() {
             bool result = true;
-
-            _drawMan.defaultVideoSettings = _defaultVideoSettings;
+            
             result &= _drawMan.init();
 
             //set inputMan's window handle
             _inputMan.window = _drawMan.window;
 
-            _logicMan.videoSettings = _drawMan.defaultVideoSettings;
+            _logicMan.videoSettings = _drawMan.videoSettings;
             result &= _logicMan.init();
 
             result &= _inputMan.init();
@@ -111,5 +111,28 @@ namespace RoguePanda {
         public void Dispose() {
             ((IDisposable)_drawMan).Dispose();
         }
+
+        /// <summary>
+        /// extract embedded dependencies if they aren't present at startup
+        /// </summary>
+        private void extractDependencies() {
+            Assembly a = Assembly.GetExecutingAssembly();
+            string[] depnames = a.GetManifestResourceNames();
+            foreach (string dep in depnames) {
+                string assemblyName = a.FullName.Split(' ')[0].TrimEnd(',');
+                if (dep.StartsWith(assemblyName + ".lib.")) {
+                    string fn = Path.GetFileName(dep).Replace(assemblyName + ".lib.", "");
+                    if (!File.Exists(fn)) {
+                        Stream embedded = a.GetManifestResourceStream(dep);
+                        FileStream output = new FileStream(fn, FileMode.Create);
+                        for (int i = 0; i < embedded.Length; i++) {
+                            output.WriteByte((byte)embedded.ReadByte());
+                        }
+                        output.Close();
+                    }
+                }
+            }
+        }
+
     }
 }

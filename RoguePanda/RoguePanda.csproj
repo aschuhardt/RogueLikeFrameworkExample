@@ -40,11 +40,7 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.2-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="sfmlnet-audio-2, Version=2.1.0.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\SFML.Net.2.1.5\lib\sfmlnet-audio-2.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="sfmlnet-graphics-2, Version=2.1.0.0, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\packages\SFML.Net.2.1.5\lib\sfmlnet-graphics-2.dll</HintPath>
@@ -66,12 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
-    <Compile Include="entity\DrawObjectBase.cs" />
+    <Compile Include="entity\interface\ISpriteObject.cs" />
+    <Compile Include="entity\base\TextObjectBase.cs" />
     <Compile Include="entity\entitycolor\EntityColor.cs" />
     <Compile Include="entity\entitycolor\InvalidEntityColorValueException.cs" />
     <Compile Include="entity\DrawingMacros.cs" />
-    <Compile Include="entity\FlexibleEntity.cs" />
-    <Compile Include="entity\IDrawObject.cs" />
+    <Compile Include="entity\FlexibleTextObject.cs" />
+    <Compile Include="entity\interface\ITextObject.cs" />
     <Compile Include="InputType.cs" />
     <Compile Include="manager\ConfigManager.cs" />
     <Compile Include="manager\DrawManager.cs" />
@@ -82,12 +79,11 @@
     <Compile Include="manager\InputManager.cs" />
     <Compile Include="manager\LogicManager.cs" />
     <Compile Include="manager\ManagerBase.cs" />
-    <Compile Include="modules\base\ColorMapper.cs" />
-    <Compile Include="modules\base\Colors.cs" />
     <Compile Include="modules\base\ModuleBase.cs" />
     <Compile Include="modules\interface\IModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateMapper.cs" />
+    <Compile Include="TextureMapper.cs" />
     <Compile Include="VideoSettings.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +91,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+    <EmbeddedResource Include="lib\csfml-graphics-2.dll" />
+    <EmbeddedResource Include="lib\csfml-window-2.dll" />
+    <EmbeddedResource Include="lib\libsndfile-1.dll" />
+    <EmbeddedResource Include="lib\Newtonsoft.Json.dll" />
+    <EmbeddedResource Include="lib\openal32.dll" />
+    <EmbeddedResource Include="lib\sfmlnet-graphics-2.dll" />
+    <EmbeddedResource Include="lib\sfmlnet-window-2.dll" />
     <Content Include="typeface\MorePerfectDOSVGA.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -5,19 +5,20 @@ using System.Collections.Generic;
 using SFML.Window;
 using SFML.Graphics;
 using System;
+
 namespace RoguePanda.manager {
     /// <summary>
     /// Manages window initialization and runs drawing routines.
     /// </summary>
     internal sealed class DrawManager : ManagerBase, IDisposable {
-
+        public VideoSettings videoSettings { get; private set; }
         private RenderWindow _window;
         private Font _font;
-        private bool _entityBufferSet;
+        private bool _textEntityBufferSet;
+        private bool _spriteEntityBufferSet;
         private bool _windowInitialized;
-        private ICollection<IDrawObject> _entityBuffer;
-
-        public VideoSettings defaultVideoSettings { get; set; }
+        private ICollection<ITextObject> _textEntityBuffer;
+        private ICollection<ISpriteObject> _spriteEntityBuffer;
 
         public RenderWindow window {
             get {
@@ -34,8 +35,10 @@ namespace RoguePanda.manager {
         /// Initializes the entity buffer, as well as the entityBufferSet and windowInitialized flags.
         /// </summary>
         public DrawManager() {
-            _entityBuffer = new List<IDrawObject>();
-            _entityBufferSet = false;
+            _textEntityBuffer = new List<ITextObject>();
+            _spriteEntityBuffer = new List<ISpriteObject>();
+            _textEntityBufferSet = false;
+            _spriteEntityBufferSet = false;
             _windowInitialized = false;
         }
 
@@ -45,8 +48,16 @@ namespace RoguePanda.manager {
         /// <returns>True if successful, false if not.</returns>
         public bool init() {
             try {
-                initWindow();
+                VideoSettings defaultVideoSettings = new VideoSettings() {
+                    width = Convert.ToUInt32(ConfigManager.Config.DefaultWindowWidth),
+                    height = Convert.ToUInt32(ConfigManager.Config.DefaultWindowHeight),
+                    aalevel = Convert.ToUInt32(ConfigManager.Config.AntialiasingLevel),
+                    fullscreen = false
+                };
+
+                initWindow(defaultVideoSettings);
                 initFont();
+
                 return true;
             } catch (System.Exception ex) {
                 errorMessage = $"Failed to initialize drawing manager: {ex.Message}";
@@ -58,9 +69,14 @@ namespace RoguePanda.manager {
         /// Populates the DrawManager's collection of IEntity objects that will be drawn on the window.
         /// </summary>
         /// <param name="entities"></param>
-        public void setEntityBuffer(IEnumerable<IDrawObject> entities) {
-            foreach (IDrawObject ent in entities) _entityBuffer.Add(ent);
-            _entityBufferSet = true;
+        public void setTextEntityBuffer(IEnumerable<ITextObject> entities) {
+            foreach (ITextObject ent in entities) _textEntityBuffer.Add(ent);
+            _textEntityBufferSet = true;
+        }
+
+        public void setSpriteEntityBuffer(IEnumerable<ISpriteObject> entities) {
+            foreach (ISpriteObject ent in entities) _spriteEntityBuffer.Add(ent);
+            _spriteEntityBufferSet = true;
         }
 
         /// <summary>
@@ -70,56 +86,74 @@ namespace RoguePanda.manager {
         public override void run() {
             if (!_window.IsOpen()) return;
 
+            //clear screen buffer
+            _window.Clear(Color.Black);
+
             //check entity-set flag
-            if (!_entityBufferSet) {
+            if (!_textEntityBufferSet) {
                 throw new DrawManagerEntityBufferNotSetException("Entity buffer was not set before DrawManager.run was called.");
             } else {
-                //clear screen buffer
-                _window.Clear(Color.Black);
 
-                //do draw routines
-                IEnumerable<IDrawObject> sortedEntities = _entityBuffer.OrderBy((x) => x.layer);
-                foreach (IDrawObject ent in sortedEntities) {
+                //do TEXT draw routines
+                IEnumerable<ITextObject> sortedTextEntities = _textEntityBuffer.OrderBy((x) => x.layer);
+                foreach (ITextObject ent in sortedTextEntities) {
                     //init colors
                     Color backColor = new Color(ent.backColor.R, ent.backColor.G, ent.backColor.B);
                     Color foreColor = new Color(ent.foreColor.R, ent.foreColor.G, ent.foreColor.B);
 
                     //init text object
-                    Text txt = new Text(ent.contents, _font, Convert.ToUInt32(ConfigManager.Instance.Configuration.FontHeight));
+                    Text txt = new Text(ent.contents, _font, Convert.ToUInt32(ConfigManager.Config.FontHeight));
                     txt.Position = new Vector2f(ent.x, ent.y);
                     txt.Color = foreColor;
 
                     //init background rectangle
                     FloatRect backRect = txt.GetLocalBounds();
-                    RectangleShape backRectFill = new RectangleShape(new Vector2f(backRect.Width, backRect.Height + ConfigManager.Instance.Configuration.FontBackgroundHeightMod));
+                    RectangleShape backRectFill = new RectangleShape(new Vector2f(backRect.Width, backRect.Height + ConfigManager.Config.FontBackgroundHeightMod));
                     backRectFill.FillColor = backColor;
-                    backRectFill.Position = new Vector2f(txt.Position.X, txt.Position.Y + ConfigManager.Instance.Configuration.FontBackgroundVerticalPositionMod);
+                    backRectFill.Position = new Vector2f(txt.Position.X, txt.Position.Y + ConfigManager.Config.FontBackgroundVerticalPositionMod);
 
                     //draw background rectangle
                     _window.Draw(backRectFill);
 
                     //draw text
                     _window.Draw(txt);
-
                 }
 
-                //show drawn screen buffer
-                _window.Display();
+                //clear entity buffer and reset flag
+                _textEntityBuffer.Clear();
+                _textEntityBufferSet = false;
+            }
+
+            //do SPRITE drawing routines
+            if (!_spriteEntityBufferSet) {
+                throw new DrawManagerEntityBufferNotSetException("Entity buffer was not set before DrawManager.run was called.");
+            } else {
+                IEnumerable<ISpriteObject> sortedSpriteEntities = _spriteEntityBuffer.OrderBy((x) => x.layer);
+                foreach (ISpriteObject ent in sortedSpriteEntities) {
+                    IntRect spriteTextureRect = new IntRect(ent.texPosX, ent.texPosY, ent.width, ent.height);
+                    Sprite spr = new Sprite(TextureMapper.getTexture(ent.texID), spriteTextureRect);
+                    spr.Position = new Vector2f(ent.x, ent.y);
+                    spr.Scale = new Vector2f(ent.scaleX, ent.scaleY);
+                    //set origin at center of sprite
+                    spr.Origin = new Vector2f(ent.x + (ent.width / 2), ent.y + (ent.height / 2));
+                    spr.Rotation = ent.rotation;
+                    spr.Color = new Color(ent.color.R, ent.color.G, ent.color.B, ent.alpha);
+                    window.Draw(spr);
+                }
 
                 //clear entity buffer and reset flag
-                _entityBuffer.Clear();
-                _entityBufferSet = false;
+                _spriteEntityBuffer.Clear();
+                _spriteEntityBufferSet = false;
             }
-        }
 
-        public void initWindow() {
-            initWindow(defaultVideoSettings);
+            //show drawn screen buffer
+            _window.Display();
         }
 
         /// <summary>
         /// Initializes the window with a given set of video settings.
         /// </summary>
-        /// <param name="settings">The video settings to use for confuring the window.</param>
+        /// <param name="settings">The video settings to use for configuring the window.</param>
         public void initWindow(VideoSettings settings) {
             Styles windowStyle = Styles.Close | Styles.Titlebar;
             if (settings.fullscreen) {
@@ -132,19 +166,20 @@ namespace RoguePanda.manager {
 
             _window = new RenderWindow(
                 new VideoMode(settings.width, settings.height),
-                ConfigManager.Instance.Configuration.WindowTitle,
+                ConfigManager.Config.WindowTitle,
                 windowStyle,
-                new ContextSettings(Convert.ToUInt32(ConfigManager.Instance.Configuration.BitDepth), Convert.ToUInt32(ConfigManager.Instance.Configuration.StencilDepth), settings.aalevel));
+                new ContextSettings(Convert.ToUInt32(ConfigManager.Config.BitDepth), Convert.ToUInt32(ConfigManager.Config.StencilDepth), settings.aalevel));
             _window.SetVerticalSyncEnabled(true);
             _windowInitialized = true;
             _window.SetActive(true);
+            videoSettings = settings;
         }
 
         /// <summary>
         /// Loads the font.
         /// </summary>
         private void initFont() {
-            _font = new Font(ConfigManager.Instance.Configuration.FontPath);
+            _font = new Font(ConfigManager.Config.FontPath);
         }
 
         public void Dispose() {

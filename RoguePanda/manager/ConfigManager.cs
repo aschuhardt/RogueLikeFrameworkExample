@@ -7,17 +7,24 @@ namespace RoguePanda.manager {
         private static readonly Lazy<ConfigManager> config =
             new Lazy<ConfigManager>(() => new ConfigManager());
 
-        public static ConfigManager Instance {
+        private static ConfigManager Instance {
             get {
                 return config.Value;
             }
         }
 
-        public Config Configuration { get; set; }
+        private Config Configuration { get; set; }
 
         private ConfigManager() {
             string configJson = System.IO.File.ReadAllText(CONFIG_FILE_PATH);
             this.Configuration = JsonConvert.DeserializeObject<Config>(configJson);
         }
+
+        public static Config Config {
+            get {
+                return Instance.Configuration;
+            }
+        }
+
     }
 }

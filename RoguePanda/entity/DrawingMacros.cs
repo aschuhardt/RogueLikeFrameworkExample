@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using RoguePanda.entity;
-using RoguePanda.entity.entitycolor;
+using RoguePanda.entity.color;
 using RoguePanda.manager;
 using SFML.Graphics;
 
@@ -11,15 +11,15 @@ namespace RoguePanda.entity {
 
         private DrawingMacros() { }
 
-        public static IDrawObject[] drawRect(string glyph, DrawObjectColor foreColor, DrawObjectColor backColor, float x1, float y1, float x2, float y2, float layer = 0.0f) {
-            List<IDrawObject> result = new List<IDrawObject>();
+        public static ITextObject[] drawRect(string glyph, EntityColor foreColor, EntityColor backColor, float x1, float y1, float x2, float y2, float layer = 0.0f) {
+            List<ITextObject> result = new List<ITextObject>();
 
-            int tileWidth = ConfigManager.Instance.Configuration.FontWidth;
-            int tileHeight = ConfigManager.Instance.Configuration.FontHeight;
+            int tileWidth = ConfigManager.Config.FontWidth;
+            int tileHeight = ConfigManager.Config.FontHeight;
 
             for (int x = Convert.ToInt32(x1 / tileWidth); x <= Math.Round(x2 / tileWidth); x++) {
                 for (int y = Convert.ToInt32(y1 / tileHeight); y <= Math.Round(y2 / tileHeight); y++) {
-                    FlexibleEntity ent = new FlexibleEntity(glyph, foreColor, backColor, x * tileWidth, y * tileHeight, layer);
+                    FlexibleTextObject ent = new FlexibleTextObject(glyph, foreColor, backColor, x * tileWidth, y * tileHeight, layer);
                     result.Add(ent);
                 }
             }
@@ -27,10 +27,10 @@ namespace RoguePanda.entity {
             return result.ToArray();
         }
 
-        public static IDrawObject[] drawWindowBorders(uint width, uint height, DrawObjectColor borderForeColor, DrawObjectColor borderBackColor, float layer = 0.0f) {
-            List<IDrawObject> result = new List<IDrawObject>();
-            int fontHeight = ConfigManager.Instance.Configuration.FontHeight;
-            int fontWidth = ConfigManager.Instance.Configuration.FontWidth;
+        public static ITextObject[] drawWindowBorders(uint width, uint height, EntityColor borderForeColor, EntityColor borderBackColor, float layer = 0.0f) {
+            List<ITextObject> result = new List<ITextObject>();
+            int fontHeight = ConfigManager.Config.FontHeight;
+            int fontWidth = ConfigManager.Config.FontWidth;
 
             int top = 0;
             int bottom = Convert.ToInt32(height - fontHeight);
@@ -53,7 +53,7 @@ namespace RoguePanda.entity {
         }
 
         public static string[] splitMultiLineDelimited(string input) {
-            string[] lineDelimiters = new string[] { ConfigManager.Instance.Configuration.LineDelimiter };
+            string[] lineDelimiters = new string[] { ConfigManager.Config.LineDelimiter };
             string[] lines = input.Split(lineDelimiters, StringSplitOptions.None);
             return lines;
         }
