@@ -130,6 +130,7 @@
     <EmbeddedResource Include="lib\sfmlnet-graphics-2.dll" />
     <EmbeddedResource Include="lib\sfmlnet-window-2.dll" />
     <EmbeddedResource Include="lib\csfml-audio-2.dll" />
+    <EmbeddedResource Include="lib\sfmlnet-audio-2.dll" />
     <Content Include="typeface\MorePerfectDOSVGA.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

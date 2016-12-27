@@ -44,12 +44,17 @@ namespace RoguePanda.manager {
                     window.KeyPressed += HandleKeyPressed;
                     window.Closed += HandleWindowClosed;
                     window.Resized += HandleWindowResized;
+                    window.TextEntered += Window_TextEntered;
                     return true;
                 }
             } catch (Exception ex) {
                 errorMessage = $"Failed to initialize input manager: {ex.Message}";
                 return false;
             }
+        }
+
+        private void Window_TextEntered(object sender, TextEventArgs e) {
+            _keyPressed = e.Unicode;
         }
 
         private void HandleWindowResized(object sender, SizeEventArgs e) {
@@ -86,22 +91,6 @@ namespace RoguePanda.manager {
                 default:
                     break;
             }
-
-            _keyPressed = getKeyPressedString(e.Code);
-            if (!e.Shift) _keyPressed = _keyPressed.ToLower();
-        }
-
-        private string getKeyPressedString(Keyboard.Key input) {
-            string result = "";
-
-            if (((int)input >= 0 && (int)input <= 25) || input == Keyboard.Key.Space) {
-                if (input == Keyboard.Key.Space) {
-                    result = " ";
-                } else {
-                    result = input.ToString();
-                }
-            }
-            return result;
         }
 
         public override void run() {
