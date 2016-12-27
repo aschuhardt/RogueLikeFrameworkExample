@@ -1,8 +1,8 @@
 # RoguePanda
-A text-based roguelike game framework leveraging SFML.NET.
+A roguelike game framework leveraging SFML.NET.
 
 # Summary
-This is a small text-based game engine I put together for my own personal use.  I will be making occasional updates to it as I see fit, so be aware that its functionality might drastically change at some point.  
+This is a small 2D game engine I put together for my own personal use.  I will be making occasional updates to it as I see fit, so be aware that its functionality might drastically change at some point.  
 
 I intend for the usage of this engine to emphasize modularity and open-endedness.  My intention is that each module can focus on its own functionality, while not being concerned with the tedium of drawing and state transitioning.  Not much else past these basic functions are provided, and so the developer of each module is solely responsible for its implementation.
 
