@@ -26,5 +26,10 @@ namespace RoguePanda.manager {
             }
         }
 
+        public static void SaveConfig(Config newCfg) {
+            string configJson = JsonConvert.SerializeObject(newCfg, Formatting.Indented);
+            System.IO.File.WriteAllText(CONFIG_FILE_PATH, configJson);
+            Instance.Configuration = newCfg;
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿{
-  "AntialiasingLevel": 1,
+  "AntialiasingLevel": 8,
   "AssetDirectories": [
     "assets/"
   ],
@@ -16,7 +16,7 @@
   "FontPath": "typeface/MorePerfectDOSVGA.ttf",
   "FontWidth": 9,
   "LineDelimiter": "%endline%",
-  "SmoothSprites": false,
+  "SmoothSprites": true,
   "StencilDepth": 0,
   "WindowTitle": "RoguePanda"
 }
