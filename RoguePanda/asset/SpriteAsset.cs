@@ -10,8 +10,8 @@ namespace RoguePanda.asset {
         public Texture texture {
             get {
                 if (_texture == null) {
-                    using (MemoryStream ms = fileStream) {
-                        _texture = new Texture(ms);
+                    using (FileStream fs = fileStream) {
+                        _texture = new Texture(fs);
                         _texture.Smooth = ConfigManager.Config.SmoothSprites;
                     }
                 }

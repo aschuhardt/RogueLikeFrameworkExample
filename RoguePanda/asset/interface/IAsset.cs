@@ -1,9 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RoguePanda.asset {
     internal enum AssetType {
@@ -17,6 +13,6 @@ namespace RoguePanda.asset {
         string fileName { get; }
         string canonicalName { get; }
         Guid id { get; }
-        MemoryStream fileStream { get; }
+        FileStream fileStream { get; }
     }
 }

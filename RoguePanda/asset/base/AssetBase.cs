@@ -39,11 +39,11 @@ namespace RoguePanda.asset {
             }
         }
 
-        public MemoryStream fileStream {
+        public FileStream fileStream {
             get {
                 if (_isValidFile) {
-                    MemoryStream ms = new MemoryStream(File.ReadAllBytes(_filePath));
-                    return ms;
+                    FileStream fs = File.OpenRead(_filePath);
+                    return fs;
                 } else {
                     string msg = $"Attempted to access file stream of invalid asset file: \"{_filePath}\".";
                     throw new InvalidAssetStreamAccessException(msg);
