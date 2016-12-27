@@ -11,9 +11,13 @@ namespace RoguePanda {
             if (imgAsset.assetType == AssetType.Sprite && imgAsset is SpriteAsset) {
                 return ((SpriteAsset)imgAsset).texture;
             } else {
-                string msg = $"Incorrect asset type: Was expecting a Sprite, but the supplied asset name \"{id}\" refers to an asset of type \"{imgAsset.assetType.ToString()}\".";
-                throw new InvalidAssetStreamAccessException(msg);
+                throw buildIncorrectAssetTypeError(id, imgAsset.assetType);
             }
+        }
+
+        private static InvalidAssetStreamAccessException buildIncorrectAssetTypeError(string id, AssetType t) {
+            string msg = $"Incorrect asset type: Was expecting a Sprite, but the supplied asset name \"{id}\" refers to an asset of type \"{t.ToString()}\".";
+            return new InvalidAssetStreamAccessException(msg);
         }
     }
 }

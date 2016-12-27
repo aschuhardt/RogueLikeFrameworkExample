@@ -11,8 +11,7 @@ namespace RoguePanda {
             if (sndAsset.assetType == AssetType.Audio && sndAsset is AudioAsset) {
                 return ((AudioAsset)sndAsset).sound;
             } else {
-                string msg = $"Incorrect asset type: Was expecting an Audio asset, but the supplied asset name \"{id}\" refers to an asset of type \"{sndAsset.assetType.ToString()}\".";
-                throw new InvalidAssetStreamAccessException(msg);
+                throw buildIncorrectAssetTypeError(id, sndAsset.assetType);
             }
         }
 
@@ -21,9 +20,13 @@ namespace RoguePanda {
             if (sndAsset.assetType == AssetType.Audio && sndAsset is AudioAsset) {
                 return ((AudioAsset)sndAsset).music;
             } else {
-                string msg = $"Incorrect asset type: Was expecting an Audio asset, but the supplied asset name \"{id}\" refers to an asset of type \"{sndAsset.assetType.ToString()}\".";
-                throw new InvalidAssetStreamAccessException(msg);
+                throw buildIncorrectAssetTypeError(id, sndAsset.assetType);
             }
+        }
+
+        private static InvalidAssetStreamAccessException buildIncorrectAssetTypeError(string id, AssetType t) {
+            string msg = $"Incorrect asset type: Was expecting an Audio asset, but the supplied asset name \"{id}\" refers to an asset of type \"{t.ToString()}\".";
+            return new InvalidAssetStreamAccessException(msg);
         }
     }
 }
