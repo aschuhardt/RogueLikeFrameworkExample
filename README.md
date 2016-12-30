@@ -1,5 +1,5 @@
 # RoguePanda
-A roguelike game framework leveraging SFML.NET.
+A 2D game framework leveraging SFML.NET.
 
 # Summary
 This is a small 2D game engine I put together for my own personal use.  I will be making occasional updates to it as I see fit, so be aware that its functionality might drastically change at some point.  
