@@ -103,6 +103,8 @@
     <Compile Include="manager\ManagerBase.cs" />
     <Compile Include="modules\base\ModuleBase.cs" />
     <Compile Include="modules\interface\IModule.cs" />
+    <Compile Include="modules\KeyState.cs" />
+    <Compile Include="modules\KeyStateTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="modules\StateMapper.cs" />
     <Compile Include="asset\TextureMapper.cs" />

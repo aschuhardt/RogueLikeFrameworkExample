@@ -87,6 +87,10 @@ namespace testmodule {
                 }
             }
 
+            if (isKeyDown(RoguePanda.InputType.Enter)) {
+                drawText("Enter is being pressed!", x: 500, y: 200);
+            }
+
             float fps = frameRate();
             if (fps != -1.0f) {
                 drawText(string.Format("FPS: {0}", fps.ToString("0.###")), EntityColor.createRGB(255, 240, 255), EntityColor.createRGB(0, 0, 0), 0, 0, true);

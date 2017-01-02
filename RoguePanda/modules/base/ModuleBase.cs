@@ -22,6 +22,7 @@ namespace RoguePanda.modules {
         private bool _closing;
         private string _nextState;
         private bool _reinitWindow;
+        private KeyStateTracker _keyStatesTracker;
 
         //misc members
         private VideoSettings _videoSettings; //stores current screen setting information
@@ -116,6 +117,7 @@ namespace RoguePanda.modules {
             _windowHeight = _videoSettings.height;
             _defaultTextForecolor = EntityColor.createRGB(255, 255, 255);
             _defaultTextBackcolor = EntityColor.createRGB(0, 0, 0);
+            _keyStatesTracker = new KeyStateTracker();
             return initModule(parameters);
         }
 
@@ -126,6 +128,10 @@ namespace RoguePanda.modules {
             } else {
                 _firstRun = false;
             }
+            //keep track of input states
+            _keyStatesTracker.run(_input);
+
+            //run module
             runModule();
         }
 
@@ -208,6 +214,10 @@ namespace RoguePanda.modules {
             foreach (ITextEntity ent in DrawingMacros.drawWindowBorders(_windowWidth, _windowHeight, foreColor, backColor, layer)) {
                 _textObjects.Add(ent);
             }
+        }
+
+        protected bool isKeyDown(InputType inputToTest) {
+            return _keyStatesTracker.isKeyDown(inputToTest);
         }
 
         protected void drawRect(string content, EntityColor foreColor, EntityColor backColor, float x1, float y1, float x2, float y2, bool isStatic = false) {
