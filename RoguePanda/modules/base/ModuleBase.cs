@@ -5,6 +5,11 @@ using RoguePanda.entity;
 using RoguePanda.entity.color;
 
 namespace RoguePanda.modules {
+    /// <summary>
+    /// Base object from which all developer-defined modules will derive.
+    /// Contains information relevent to the current module's state, as well
+    /// as providing some abstraction of routine processes that modules will perform.
+    /// </summary>
     public abstract class ModuleBase : IModule {
         //constants
         private const float ENTITY_LAYER_STATIC = float.MinValue;
@@ -31,8 +36,20 @@ namespace RoguePanda.modules {
         private EntityColor _defaultTextForecolor;
         private EntityColor _defaultTextBackcolor;
 
+        /// <summary>
+        /// The current width of the game window.
+        /// </summary>
         protected uint _windowWidth;
+
+        /// <summary>
+        /// The current height of the game window.
+        /// </summary>
         protected uint _windowHeight;
+
+        /// <summary>
+        /// Text representation of currently-pressed key.
+        /// Only usable for text/typing input, not for fluid control.
+        /// </summary>
         protected string _keyPressed;
 
         public bool closing {
@@ -65,6 +82,9 @@ namespace RoguePanda.modules {
             }
         }
 
+        /// <summary>
+        /// Objects that can be passed between modules when the engine is forced to change state.
+        /// </summary>
         public IList<object> transferParameters {
             get {
                 return _transferParams;
@@ -134,7 +154,7 @@ namespace RoguePanda.modules {
             //run module
             runModule();
         }
-
+        
         public ModuleBase() {
             _closing = false;
             _textObjects = new List<ITextEntity>();
@@ -147,6 +167,9 @@ namespace RoguePanda.modules {
             _firstRun = true;
         }
 
+        /// <summary>
+        /// Use this method to force the game window to resize.
+        /// </summary>
         protected void resizeWindow(uint width, uint height, uint aalevel = 0, bool fullscrn = false) {
             _videoSettings = new VideoSettings() {
                 width = width,
@@ -159,16 +182,28 @@ namespace RoguePanda.modules {
             _reinitWindow = true;
         }
 
+        /// <summary>
+        /// Use this method to force the game engine to transition to a new module,
+        /// and optionally to pass the new module a collection of objects.
+        /// </summary>
         protected void transitionToState(string nextState, IList<object> parameters = null) {
             _closing = true;
             _transferParams = parameters;
             _nextState = nextState;
         }
 
+        /// <summary>
+        /// Detect whether a particular key was entered.
+        /// Warning: Use "isKeyPressed" for more fluid UI behavior.
+        /// </summary>
+        /// <returns>True if the particular input was entered.</returns>
         protected bool testInput(InputType inType) {
             return InputFlagHelper.isInputFlagSet(_input, inType);
         }
 
+        /// <summary>
+        /// Used to draw text at a location on-screen.
+        /// </summary>
         protected void drawText(string content, EntityColor? foreColor = null, EntityColor? backColor = null, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
             ITextEntity newEnt = new SimpleTextEntity(content,
@@ -180,6 +215,9 @@ namespace RoguePanda.modules {
             _textObjects.Add(newEnt);
         }
 
+        /// <summary>
+        /// Used to draw a sprite from among the loaded assets onto the window.
+        /// </summary>
         protected void drawSprite(string assetName, int width, int height, bool isStatic, int x = 0, int y = 0, float rotation = 0.0f, float scaleX = 1.0f, float scaleY = 1.0f, byte alpha = 255, int textureX = 0, int textureY = 0) {
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
             ISpriteEntity newEnt = new SimpleSpriteEntity(assetName, width, height, layer) {
@@ -195,16 +233,25 @@ namespace RoguePanda.modules {
             _spriteObjects.Add(newEnt);
         }
 
+        /// <summary>
+        /// Plays audio.  The entire asset will be loaded into memory before being played.
+        /// </summary>
         protected void playSound(string assetName, float volume = 100.0f, float pitch = 1.0f, bool loop = false, string tag = "") {
             IAudioEntity newEnt = new SimpleAudioEntity(assetName, AudioEntityType.Sound, tag, volume, pitch, loop);
             _audioEntities.Add(newEnt);
         }
 
+        /// <summary>
+        /// Play audio.  The asset will be streamed from its location on-disk in order to save memory when dealing with larger files.
+        /// </summary>
         protected void playMusic(string assetName, float volume = 100.0f, float pitch = 1.0f, bool loop = false, string tag = "") {
             IAudioEntity newEnt = new SimpleAudioEntity(assetName, AudioEntityType.Music, tag, volume, pitch, loop);
             _audioEntities.Add(newEnt);
         }
 
+        /// <summary>
+        /// Stops all playing audio that has the specified tag.
+        /// </summary>
         protected void stopAudio(string tag) {
             _requestedAudioStopTags.Add(tag);
         }
@@ -216,6 +263,10 @@ namespace RoguePanda.modules {
             }
         }
 
+        /// <summary>
+        /// Used to detect whether a key is currently being pressed.  Use this for fluid UI interaction.
+        /// </summary>
+        /// <returns>True if the key is pressed, otherwise False.</returns>
         protected bool isKeyDown(InputType inputToTest) {
             return _keyStatesTracker.isKeyDown(inputToTest);
         }
@@ -227,6 +278,9 @@ namespace RoguePanda.modules {
             }
         }
 
+        /// <summary>
+        /// Clears drawn objects (text + sprites).  Optionally, also clears objects marked as Static (i.e. those that will not otherwise be cleared each frame).
+        /// </summary>
         protected void clearDrawObjects(bool preserveStatics = true) {
             if (preserveStatics) {
                 IList<ITextEntity> staticTextEntities = new List<ITextEntity>(_textObjects.Where((x) => x.layer == ENTITY_LAYER_STATIC));
