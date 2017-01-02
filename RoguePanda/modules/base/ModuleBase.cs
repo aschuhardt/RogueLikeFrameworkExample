@@ -6,20 +6,29 @@ using RoguePanda.entity.color;
 
 namespace RoguePanda.modules {
     public abstract class ModuleBase : IModule {
+        //constants
         private const float ENTITY_LAYER_STATIC = float.MinValue;
         private const float ENTITY_LAYER_NORMAL = 0.0f;
+        
+        //containers
         private IList<ITextEntity> _textObjects;
         private IList<ISpriteEntity> _spriteObjects;
         private IList<IAudioEntity> _audioEntities;
-        private IList<string> _requestedAudioStopTags;
+        private IList<string> _requestedAudioStopTags; //used to store a collection of audio entity tags that the derivative would like to close
         private IList<object> _transferParams;
+
+        //flow control
         private InputType _input;
         private bool _closing;
         private string _nextState;
         private bool _reinitWindow;
-        private VideoSettings _videoSettings;
+
+        //misc members
+        private VideoSettings _videoSettings; //stores current screen setting information
         private bool _firstRun; //this is used to bypass clearing the audio buffer immediately after initialization, 
-                                //so that it's possible to start up a track on module init without it immediately being disposed of.
+                                //  so that it's possible to start up a track on module init without it immediately being disposed of.
+        private EntityColor _defaultTextForecolor;
+        private EntityColor _defaultTextBackcolor;
 
         protected uint _windowWidth;
         protected uint _windowHeight;
@@ -105,6 +114,8 @@ namespace RoguePanda.modules {
         public bool init(IList<object> parameters) {
             _windowWidth = _videoSettings.width;
             _windowHeight = _videoSettings.height;
+            _defaultTextForecolor = EntityColor.createRGB(255, 255, 255);
+            _defaultTextBackcolor = EntityColor.createRGB(0, 0, 0);
             return initModule(parameters);
         }
 
@@ -152,9 +163,14 @@ namespace RoguePanda.modules {
             return InputFlagHelper.isInputFlagSet(_input, inType);
         }
 
-        protected void drawText(string content, EntityColor foreColor, EntityColor backColor, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
+        protected void drawText(string content, EntityColor? foreColor = null, EntityColor? backColor = null, float x = 0.0f, float y = 0.0f, bool isStatic = false) {
             float layer = isStatic ? ENTITY_LAYER_STATIC : ENTITY_LAYER_NORMAL;
-            ITextEntity newEnt = new SimpleTextEntity(content, foreColor, backColor, x, y, layer);
+            ITextEntity newEnt = new SimpleTextEntity(content,
+                (foreColor ?? _defaultTextForecolor),
+                (backColor ?? _defaultTextBackcolor),
+                x, 
+                y, 
+                layer);
             _textObjects.Add(newEnt);
         }
 
